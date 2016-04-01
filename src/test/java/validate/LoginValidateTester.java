@@ -1,0 +1,50 @@
+package validate;
+
+
+import org.testng.annotations.*;
+
+public class LoginValidateTester {
+
+
+
+    @BeforeMethod
+    public void beforeMethod() {
+        System.out.println("in beforeMethod");
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        System.out.println("in afterMethod");
+    }
+    @BeforeClass
+    public void beforeClass() {
+        System.out.println("in beforeClass");
+    }
+
+    @AfterClass
+    public void afterClass() {
+        System.out.println("in afterClass");
+    }
+
+    @BeforeTest
+    public void beforeTest() {
+        System.out.println("in beforeTest");
+    }
+    @AfterTest
+    public void afterTest() {
+        System.out.println("in afterTest");
+    }
+
+    @BeforeSuite
+    public void beforeSuite() {
+        System.out.println("in beforeSuite");
+    }
+
+    @AfterSuite
+    public void afterSuite() {
+        System.out.println("in afterSuite");
+    }
+
+
+
+}

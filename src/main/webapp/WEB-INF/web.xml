@@ -1,0 +1,57 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+
+
+  <listener>
+    <listener-class>listener.AppContextListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>servlet1</servlet-name>
+    <description>servlet1</description>
+    <servlet-class>servelet.MyServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+
+  </servlet>
+
+  <servlet>
+    <servlet-name>servlet2</servlet-name>
+    <servlet-class>servelet.MyServletTranslate</servlet-class>
+    <load-on-startup>2</load-on-startup>
+
+  </servlet>
+
+  <servlet>
+    <servlet-name>servlet3</servlet-name>
+    <servlet-class>servelet.LogoutServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>servlet1</servlet-name>
+    <url-pattern>/MyServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>servlet2</servlet-name>
+    <url-pattern>/MyServletTranslate</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>servlet3</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+
+
+
+
+
+
+
+</web-app>
