@@ -6,11 +6,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 
@@ -70,7 +73,7 @@ public class HttpClientClass {
      * text_input => input string
      * */
 
-    public static String translate_text(String o_lan,String t_lan,String text_input) throws Exception {
+    public static String translate_text(String o_lan,String t_lan,String text_input) throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
 
 
         String output;
@@ -80,7 +83,13 @@ public class HttpClientClass {
         /**send the request to the server thorough HttpClient*/
         HttpClient httpClient_translate = new DefaultHttpClient();
         HttpGet request = new HttpGet(transUrl);
-        HttpResponse response2 = httpClient_translate.execute(request);
+
+        HttpResponse response2 = null;
+        try {
+            response2 = httpClient_translate.execute(request);
+        } catch (IOException e1) {
+            throw e1;
+        }
 
 
         /**Get the response*/
@@ -88,8 +97,18 @@ public class HttpClientClass {
 
         /**creating DOM object*/
         DocumentBuilderFactory dbf2 = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder2 = dbf2.newDocumentBuilder();
-        Document doc = builder2.parse(input2);
+        DocumentBuilder builder2 = null;
+        try {
+            builder2 = dbf2.newDocumentBuilder();
+        } catch (ParserConfigurationException e2) {
+            throw e2;
+        }
+        Document doc = null;
+        try {
+            doc = builder2.parse(input2);
+        } catch (SAXException e3) {
+            throw e3;
+        }
 
         NodeList text_tag = doc.getElementsByTagName("text");
 
