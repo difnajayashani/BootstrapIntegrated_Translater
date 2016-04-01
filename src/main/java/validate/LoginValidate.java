@@ -16,7 +16,7 @@ public class LoginValidate {
      * @return
      */
 
-    public static boolean validate(String name, String pw) {
+    public static boolean validate(String name, String pw) throws Exception {
 
 
         Statement stmt = null;
@@ -42,8 +42,7 @@ public class LoginValidate {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw e;
         } finally {   /** the ResultSet , statement and connection are explicitly closed*/
             try {
                 if (rs != null) rs.close();
