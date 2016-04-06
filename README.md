@@ -27,7 +27,7 @@ hare the webapp is integrated with bootstrap and also Testng
 - copy and paste the `war` file created from buliding the maven project
 - start tomcat by running `./startup.sh` file in the bin directory 
 
-#### HOw to access the application
+#### How to access the application
 - In the browser type`127.0.0.1:8080/my-app`
 
 
