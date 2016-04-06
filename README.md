@@ -33,3 +33,7 @@ hare the webapp is integrated with bootstrap and also Testng
       - java
     
 - pom.xml
+
+#### COnsiderations
+- package structure of `main/java` should be identical to that of `test/java`.
+- Give a valid name for the test class so as to relate to the perticular class it is testing 
