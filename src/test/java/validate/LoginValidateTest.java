@@ -75,7 +75,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right2", "right2");
         } catch (Exception e) {
-            e.printStackTrace();
+            fail();
 
         }
 
@@ -89,7 +89,6 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right2", "right");
         } catch (Exception e) {
-            e.printStackTrace();
             fail();
         }
 
@@ -104,8 +103,7 @@ public class LoginValidateTest {
         boolean res= false;
         try {
             res = LoginValidate.validate(" ", " ");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) 
             fail();
         }
 
@@ -120,7 +118,6 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate(" ", "right ");
         } catch (Exception e) {
-            e.printStackTrace();
             fail();
         }
 
@@ -135,7 +132,6 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right ", " ");
         } catch (Exception e) {
-            e.printStackTrace();
             fail();
         }
 
