@@ -38,6 +38,12 @@ public class App {
             String y = prop.getProperty("database.pw");
             String z = prop.getProperty("database.url");
 
+            String p = prop.getProperty("languagelist.url");
+            String r = prop.getProperty("database.driver");
+
+
+
+
 
             /** create a hash map and put each loaded property with a unique key value*/
             result = new HashMap<Integer, String>();
@@ -45,6 +51,9 @@ public class App {
             result.put(1, x);
             result.put(2, y);
             result.put(3, z);
+
+            result.put(4, p);
+            result.put(5, r);
 
 
             // The HashMap is currently empty.

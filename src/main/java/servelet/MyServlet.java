@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-
+/**sevelet class to take the login form inputs and validate the user*/
 public class MyServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -24,22 +24,25 @@ public class MyServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // HttpClientClass lang_obj=null;
+
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+
         /** username and password entered to the form are captured*/
         String n = request.getParameter("username");
         String p = request.getParameter("password");
 
 
-        /*HttpSession session = request.getSession(false);
-        if (session != null)
-            session.setAttribute("name", n);*/
 
 
-        /**validate the login */
-        boolean valid = LoginValidate.validate(n, p);
+        /**validate the login by calling validate function */
+        boolean valid = false;
+        try {
+            valid = LoginValidate.validate(n, p);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (valid) {
             try {
@@ -64,8 +67,9 @@ public class MyServlet extends HttpServlet {
             //HttpServletRequest languagelist = null;
 
         } else {
-/**/
+
             request.setAttribute("error", "Sorry username or password error");
+
             //out.print("<p style=\"color:blue\">Sorry username or password error</p>");
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.include(request, response);

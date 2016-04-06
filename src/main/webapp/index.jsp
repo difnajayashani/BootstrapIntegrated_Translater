@@ -3,6 +3,7 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+           
         <title>Login Page</title>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet">

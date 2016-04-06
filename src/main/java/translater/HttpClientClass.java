@@ -7,6 +7,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import property.App;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,12 +16,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Map;
 
 
 public class HttpClientClass {
 
+    /** create a hashmap object and call the getProperties method from App Class*/
+    Map<Integer, String> urls = App.getProperties();
+
     /** URL to send the request to the API to obtain the language list*/
-    static final String PostUrl = "https://translate.yandex.net/api/v1.5/tr/getLangs?key=trnsl.1.1.20160314T055200Z.07d596d9ea107355.aed848e09a0ba5d5104ae740cc1b2dc0d6a33363&ui=en";
+     final String PostUrl = urls.get(4);;
 
 
     public static void main(String[] args) throws Exception {
