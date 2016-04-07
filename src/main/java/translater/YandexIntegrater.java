@@ -24,13 +24,13 @@ import java.util.Map;
 public class YandexIntegrater {
 
     /**create the logger object for logging */
-    private static final Logger log = LogManager.getLogger(YandexIntegrater.class);
+    private static final Logger LOG = LogManager.getLogger(YandexIntegrater.class);
 
     /** create a hashmap object and call the getProperties method from App Class*/
     Map<Integer, String> urls = PropertyRead.getProperties();
 
     /** URL to send the request to the API to obtain the language list*/
-     final String postUrl = urls.get(4);
+     final String POSTURL = urls.get(4);
 
 
 
@@ -42,26 +42,26 @@ public class YandexIntegrater {
         String  ex2 = null;
         ArrayList<String> ex1;
         try {
-            log.info("Calling text translate function");
+            LOG.info("Calling text translate function");
             ex2 = y.translateText("english", "arabic", "Hello");
-            log.debug("Successfully executed the text translate method");
+            LOG.debug("Successfully executed the text translate method");
         } catch (IOException e) {
-            log.error("IOException occurred ", e);
+            LOG.error("IOException occurred ", e);
         } catch (ParserConfigurationException e) {
-            log.error("ParserConfigurationException occurred ", e);
+            LOG.error("ParserConfigurationException occurred ", e);
         } catch (SAXException e) {
-            log.error("SAXException occurred ", e);
+            LOG.error("SAXException occurred ", e);
         } catch (URISyntaxException e) {
-            log.error("URISyntaxException occurred ", e);
+            LOG.error("URISyntaxException occurred ", e);
         }
 
-        log.info("translated text is: {}.", ex2);
+        LOG.info("translated text is: {}.", ex2);
 
         try {
             ex1=y.getLangs();
-            log.info("translated text is: {}.", ex1);
+            LOG.info("translated text is: {}.", ex1);
         } catch (Exception e) {
-            log.error("Exception occurred in getting language list", e);
+            LOG.error("Exception occurred in getting language list", e);
         }
     }
 
@@ -72,14 +72,14 @@ public class YandexIntegrater {
         org.apache.http.client.HttpClient httpClient = new DefaultHttpClient();
 
         /** send the request to the Yandex API */
-        log.info("Sending API request to Yandex to get language list");
-        HttpGet request = new HttpGet(postUrl);
+        LOG.info("Sending API request to Yandex to get language list");
+        HttpGet request = new HttpGet(POSTURL);
 
         /** get the response*/
         HttpResponse response = httpClient.execute(request);
         HttpEntity entity1= response.getEntity();
         if(entity1 == null)  {
-            log.error("Response of getting language list is NUll");
+            LOG.error("Response of getting language list is NUll");
         }
 
         /** Get the response */
@@ -120,12 +120,12 @@ public class YandexIntegrater {
 
         String output;
         /** URL sent to the API to get the string translated*/
-        log.info("Sending API request to Yandex to get the language translated");
-        String transUrl=urls.get(5)+o_lan+"-"+t_lan+"&text="+text_input;
+        LOG.info("Sending API request to Yandex to get the language translated");
+       final String TRANSURL=urls.get(5)+o_lan+"-"+t_lan+"&text="+text_input;
 
         /**send the request to the server thorough YandexIntegrater*/
         org.apache.http.client.HttpClient httpClient_translate = new DefaultHttpClient();
-        HttpGet request = new HttpGet(transUrl);
+        HttpGet request = new HttpGet(TRANSURL);
 
         HttpResponse response2 ;
         try {
@@ -133,7 +133,7 @@ public class YandexIntegrater {
             response2 = httpClient_translate.execute(request);
             HttpEntity entity2= response2.getEntity();
             if(entity2 == null){
-                log.error("Response of translating a text is NUll");
+                LOG.error("Response of translating a text is NUll");
 
             }
         } catch (IOException e1) {

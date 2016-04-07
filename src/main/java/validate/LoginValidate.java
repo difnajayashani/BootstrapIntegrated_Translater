@@ -13,6 +13,8 @@ import java.sql.Statement;
 public class LoginValidate {
 
 
+    /**create the logger object for logging */
+    private static final Logger LOG = LogManager.getLogger(LoginValidate.class);
 
     /**
      * @param name = input user name
@@ -28,7 +30,7 @@ public class LoginValidate {
 
 
         try {
-
+            LOG.info("Calling the connection object");
             Connection con = DBConnectionManager.getConnection();
 
 
@@ -37,8 +39,15 @@ public class LoginValidate {
 
 
             /** execute a query and the result is returned as a ResultSet*/
+            LOG.info("Beginning to query the database based on entered details");
             String query = "SELECT * FROM user_data where user_name =\"" + name + "\" and password =md5(\"" + pw + "\"); ";
+
+            if(query == null){
+                LOG.error("Query returned from database is NUll");
+            }
+            /**create a statement */
             rs = stmt.executeQuery(query);
+
 
 
             if (rs.next()) {
@@ -48,6 +57,7 @@ public class LoginValidate {
 
         } catch (Exception e) {
             throw e;
+
         } finally {   /** the ResultSet , statement and connection are explicitly closed*/
             try {
                 if (rs != null) rs.close();
