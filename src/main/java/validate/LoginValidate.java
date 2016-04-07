@@ -2,6 +2,8 @@ package validate;
 
 
 import database.DBConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginValidate {
+
+
 
     /**
      * @param name = input user name
@@ -26,6 +30,7 @@ public class LoginValidate {
         try {
 
             Connection con = DBConnectionManager.getConnection();
+
 
             /** create a statement*/
             stmt = con.createStatement();

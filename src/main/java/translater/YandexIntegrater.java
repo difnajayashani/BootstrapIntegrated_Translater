@@ -1,8 +1,11 @@
 package translater;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -20,6 +23,9 @@ import java.util.Map;
 
 public class YandexIntegrater {
 
+    /**create the logger object for logging */
+    private static final Logger log = LogManager.getLogger(YandexIntegrater.class);
+
     /** create a hashmap object and call the getProperties method from App Class*/
     Map<Integer, String> urls = PropertyRead.getProperties();
 
@@ -27,14 +33,36 @@ public class YandexIntegrater {
      final String postUrl = urls.get(4);
 
 
-    public static void main(String[] args) throws Exception {
+
+    public static void main(String... args)  {
 
         YandexIntegrater y=new YandexIntegrater();
 
         //** for testing purpose of this class*//*
-        String  ex2 = y.translateText("english", "arabic", "Hello");
-        System.out.println(ex2);
-        System.out.println("TRANS DONE");
+        String  ex2 = null;
+        ArrayList<String> ex1;
+        try {
+            log.info("Calling text translate function");
+            ex2 = y.translateText("english", "arabic", "Hello");
+            log.debug("Successfully executed the text translate method");
+        } catch (IOException e) {
+            log.error("IOException occurred ", e);
+        } catch (ParserConfigurationException e) {
+            log.error("ParserConfigurationException occurred ", e);
+        } catch (SAXException e) {
+            log.error("SAXException occurred ", e);
+        } catch (URISyntaxException e) {
+            log.error("URISyntaxException occurred ", e);
+        }
+
+        log.info("translated text is: {}.", ex2);
+
+        try {
+            ex1=y.getLangs();
+            log.info("translated text is: {}.", ex1);
+        } catch (Exception e) {
+            log.error("Exception occurred in getting language list", e);
+        }
     }
 
 
@@ -42,8 +70,17 @@ public class YandexIntegrater {
     public  ArrayList<String> getLangs() throws Exception {
 
         org.apache.http.client.HttpClient httpClient = new DefaultHttpClient();
+
+        /** send the request to the Yandex API */
+        log.info("Sending API request to Yandex to get language list");
         HttpGet request = new HttpGet(postUrl);
+
+        /** get the response*/
         HttpResponse response = httpClient.execute(request);
+        HttpEntity entity1= response.getEntity();
+        if(entity1 == null)  {
+            log.error("Response of getting language list is NUll");
+        }
 
         /** Get the response */
         InputStream input = response.getEntity().getContent();
@@ -83,15 +120,22 @@ public class YandexIntegrater {
 
         String output;
         /** URL sent to the API to get the string translated*/
+        log.info("Sending API request to Yandex to get the language translated");
         String transUrl=urls.get(5)+o_lan+"-"+t_lan+"&text="+text_input;
 
         /**send the request to the server thorough YandexIntegrater*/
         org.apache.http.client.HttpClient httpClient_translate = new DefaultHttpClient();
         HttpGet request = new HttpGet(transUrl);
 
-        HttpResponse response2 = null;
+        HttpResponse response2 ;
         try {
+
             response2 = httpClient_translate.execute(request);
+            HttpEntity entity2= response2.getEntity();
+            if(entity2 == null){
+                log.error("Response of translating a text is NUll");
+
+            }
         } catch (IOException e1) {
             throw e1;
         }
