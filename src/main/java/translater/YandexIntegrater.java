@@ -1,13 +1,12 @@
 package translater;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import property.App;
+import property.PropertyRead;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,20 +18,21 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-public class HttpClientClass {
+public class YandexIntegrater {
 
     /** create a hashmap object and call the getProperties method from App Class*/
-    Map<Integer, String> urls = App.getProperties();
+    Map<Integer, String> urls = PropertyRead.getProperties();
 
     /** URL to send the request to the API to obtain the language list*/
-     final String PostUrl = urls.get(4);;
+     final String postUrl = urls.get(4);
 
 
     public static void main(String[] args) throws Exception {
 
+        YandexIntegrater y=new YandexIntegrater();
 
-        /** for testing purpose of this class*/
-        String  ex2 = translate_text("english", "arabic", "Hello");
+        //** for testing purpose of this class*//*
+        String  ex2 = y.translateText("english", "arabic", "Hello");
         System.out.println(ex2);
         System.out.println("TRANS DONE");
     }
@@ -41,8 +41,8 @@ public class HttpClientClass {
     /** function to get the language list */
     public  ArrayList<String> getLangs() throws Exception {
 
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpGet request = new HttpGet(PostUrl);
+        org.apache.http.client.HttpClient httpClient = new DefaultHttpClient();
+        HttpGet request = new HttpGet(postUrl);
         HttpResponse response = httpClient.execute(request);
 
         /** Get the response */
@@ -78,15 +78,15 @@ public class HttpClientClass {
      * text_input => input string
      * */
 
-    public static String translate_text(String o_lan,String t_lan,String text_input) throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
+    public  String translateText(String o_lan, String t_lan, String text_input) throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
 
 
         String output;
         /** URL sent to the API to get the string translated*/
-        String transUrl="https://translate.yandex.net/api/v1.5/tr/translate?key=trnsl.1.1.20160314T055200Z.07d596d9ea107355.aed848e09a0ba5d5104ae740cc1b2dc0d6a33363&lang="+o_lan+"-"+t_lan+"&text="+text_input;
+        String transUrl=urls.get(5)+o_lan+"-"+t_lan+"&text="+text_input;
 
-        /**send the request to the server thorough HttpClient*/
-        HttpClient httpClient_translate = new DefaultHttpClient();
+        /**send the request to the server thorough YandexIntegrater*/
+        org.apache.http.client.HttpClient httpClient_translate = new DefaultHttpClient();
         HttpGet request = new HttpGet(transUrl);
 
         HttpResponse response2 = null;
@@ -115,10 +115,10 @@ public class HttpClientClass {
             throw e3;
         }
 
-        NodeList text_tag = doc.getElementsByTagName("text");
+        NodeList textTag = doc.getElementsByTagName("text");
 
         /** get the string value of the content in the text TAG*/
-        output = String.valueOf(text_tag.item(0).getTextContent());
+        output = String.valueOf(textTag.item(0).getTextContent());
 
 
 

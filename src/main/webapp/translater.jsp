@@ -153,6 +153,7 @@
                  <div class="form-group ">
 
                     <div id="logout">
+
                         <a href="http://localhost:8080/Bootstrap_Translater/LogoutServlet">Logout</a>
                     </div>
                  </div>

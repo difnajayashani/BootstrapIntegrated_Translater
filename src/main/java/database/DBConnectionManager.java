@@ -1,7 +1,7 @@
 package database;
 
 
-import property.App;
+import property.PropertyRead;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,13 +15,13 @@ public class DBConnectionManager {
     public static Connection con;
 
     /** create a hashmap object and call the getProperties method from App Class*/
-    Map<Integer, String> driver = App.getProperties();
+    Map<Integer, String> driver = PropertyRead.getProperties();
 
     //constructor
     public DBConnectionManager(String url, String u, String ps_wd) {
 
         try {
-            Class.forName(driver.get(5));
+            Class.forName(driver.get(6));
 
 
             con = DriverManager.getConnection(url, u, ps_wd);

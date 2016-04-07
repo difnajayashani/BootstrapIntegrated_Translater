@@ -1,7 +1,7 @@
 package servelet;
 
 
-import translater.HttpClientClass;
+import translater.YandexIntegrater;
 import validate.LoginValidate;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**sevelet class to take the login form inputs and validate the user*/
@@ -46,10 +47,10 @@ public class MyServlet extends HttpServlet {
 
         if (valid) {
             try {
-                /** to load the Yandex language list to the form dropdowns using a HttpClient object */
-                HttpClientClass lang_obj = new HttpClientClass();
+                /** to load the Yandex language list to the form dropdowns using a YandexIntegrater object */
+                YandexIntegrater langObj = new YandexIntegrater();
                 ArrayList<String> load = new ArrayList<String>();
-                load = lang_obj.getLangs();
+                load = langObj.getLangs();
                 request.setAttribute("language_list", load);
 
 
@@ -63,6 +64,9 @@ public class MyServlet extends HttpServlet {
                 rd.forward(request, response);
             } catch (Exception e) {
                 throw new ServletException(e);
+            }finally{
+                if (out != null)
+                    out.close();
             }
             //HttpServletRequest languagelist = null;
 
@@ -76,6 +80,5 @@ public class MyServlet extends HttpServlet {
         }
 
 
-        out.close();
     }
 }

@@ -4,14 +4,16 @@ import database.DBConnectionManager;
 import org.testng.annotations.*;
 
 import org.testng.Assert;
+import property.PropertyRead;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Map;
 
 import static org.testng.Assert.fail;
 
-
+/**test class to test the user authentication  */
 public class LoginValidateTest {
 
 
@@ -21,7 +23,17 @@ public class LoginValidateTest {
     /**  run only once before all tests in this suite have run.*/
     @BeforeSuite
     public void connectDatatbase() {
-        dbManager = new DBConnectionManager("jdbc:mysql://localhost/login_db", "root", "root");
+
+
+        /** create a hashmap object and call the getProperties method from App Class*/
+        Map<Integer, String> databaseConnect = PropertyRead.getProperties();
+
+        /**take each element of the hash map to variables by their keyvalues */
+        String un= databaseConnect.get(1);
+        String pw= databaseConnect.get(2);
+        String url= databaseConnect.get(3);
+
+        dbManager = new DBConnectionManager(url,un,pw);
 
     }
 
@@ -53,7 +65,7 @@ public class LoginValidateTest {
         }
     }
 
-
+    /** test case with valid user name and password*/
     @Test
     public void validUserPass() {
 
@@ -68,6 +80,8 @@ public class LoginValidateTest {
 
 
     }
+
+    /** test case with invalid user name and  password*/
     @Test
     public void invalidUserPass() {
 
@@ -82,6 +96,8 @@ public class LoginValidateTest {
         Assert.assertEquals(res,false,"checking the invalid username and password");
     }
 
+
+    /** test case with valid user name and valid password*/
     @Test
     public void invalidUser_validPass() {
 
@@ -98,6 +114,7 @@ public class LoginValidateTest {
     }
 
 
+    /** test case with the user name and password empty */
     @Test
     public void emptyUserPass() {
 
@@ -113,6 +130,7 @@ public class LoginValidateTest {
 
     }
 
+    /** test case with empty user name and the valid password*/
     @Test
     public void emptyUser_Pass() {
 
@@ -128,6 +146,7 @@ public class LoginValidateTest {
 
     }
 
+    /** test case with valid user name and an empty password*/
     @Test
     public void User_emptyPass() {
 

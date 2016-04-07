@@ -1,6 +1,6 @@
 package listener;
 
-import property.App;
+import property.PropertyRead;
 
 
 import database.DBConnectionManager;
@@ -9,14 +9,14 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.Map;
 
-
+/** listener class*/
 public class AppContextListener implements ServletContextListener {
 
-
+    /** initiates a database connection*/
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
         /** create a hashmap object and call the getProperties method from App Class*/
-        Map<Integer, String> main =App.getProperties();
+        Map<Integer, String> main = PropertyRead.getProperties();
 
         /**take each element of the hash map to variables by their keyvalues */
         String u= main.get(1);

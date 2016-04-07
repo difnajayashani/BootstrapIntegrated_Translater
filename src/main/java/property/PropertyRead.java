@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /** this class will read the system.properties file to obtain any value of a property*/
-public class App {
+public class PropertyRead {
 
 
     public static Map<Integer, String> result = null;
@@ -24,7 +24,7 @@ public class App {
             String filename = "system.properties";
 
             /**read the property file and put it into a Input Stream */
-            input = App.class.getClassLoader().getResourceAsStream(filename);
+            input = PropertyRead.class.getClassLoader().getResourceAsStream(filename);
             if (input == null) {
                 System.out.println("Sorry, unable to find " + filename);
 
@@ -33,15 +33,14 @@ public class App {
             //load a system.properties file from class path, inside static method
             prop.load(input);
 
-
+            //map each of the property value to a string variable
             String x = prop.getProperty("database.user");
             String y = prop.getProperty("database.pw");
             String z = prop.getProperty("database.url");
 
             String p = prop.getProperty("languagelist.url");
+            String q = prop.getProperty("translate.url");
             String r = prop.getProperty("database.driver");
-
-
 
 
 
@@ -53,7 +52,8 @@ public class App {
             result.put(3, z);
 
             result.put(4, p);
-            result.put(5, r);
+            result.put(5, q);
+            result.put(6, r);
 
 
             // The HashMap is currently empty.

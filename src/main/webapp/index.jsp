@@ -27,7 +27,7 @@
 
                             <div class="form-group ">
 
-                                <label class="control-label col-sm-4" for="email">Username:</label>
+                                <label class="control-label col-sm-4" >Username:</label>
                                 <div class="col-sm-4"><input  class="form-control" type="text" name="username" ></div>
                                    <div class="col-sm-4"></div>
 
@@ -35,7 +35,7 @@
 
                             <div class="form-group">
 
-                                <label class="control-label col-sm-4" for="pwd">Password:</label>
+                                <label class="control-label col-sm-4" >Password:</label>
                                 <div class="col-sm-4"><input type="password" class="form-control" name="password"  placeholder="Enter password"/></div>
                                  <div class="col-sm-4"></div>
 

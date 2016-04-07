@@ -1,6 +1,6 @@
 package servelet;
 
-import translater.HttpClientClass;
+import translater.YandexIntegrater;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,27 +16,29 @@ import java.util.ArrayList;
  */
 public class MyServletTranslate extends HttpServlet {
 
-    HttpClientClass get_reply = new HttpClientClass();
+    YandexIntegrater getReply = new YandexIntegrater();
 
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
 
-        String text_output=null;
+
+        YandexIntegrater translate=new YandexIntegrater();
+        String textOutput=null;
 
 
 
             // get the parameters entered in translater.jsp form and send it to the language translate function
             String ol = request.getParameter("original-lang");
             String tl = request.getParameter("translate-lang");
-            String text_input = request.getParameter("original-text");
-            request.setAttribute("original", text_input);
+            String textInput = request.getParameter("original-text");
+            request.setAttribute("original", textInput);
 
 
             //call the language translate function and catch the translated text
             try {
-                text_output = HttpClientClass.translate_text(ol, tl, text_input);
+                textOutput = translate.translateText(ol, tl, textInput);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -44,7 +46,7 @@ public class MyServletTranslate extends HttpServlet {
 
             ArrayList<String> list = new ArrayList<String>();
             try {
-                list = get_reply.getLangs();
+                list = getReply.getLangs();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,8 +55,8 @@ public class MyServletTranslate extends HttpServlet {
 
             request.setAttribute("selected_ol", ol);
             request.setAttribute("selected_tl", tl);
-            request.setAttribute("original", text_input);
-            request.setAttribute("translated", text_output);
+            request.setAttribute("original", textInput);
+            request.setAttribute("translated", textOutput);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/translater.jsp");
             rd.forward(request, response);
 

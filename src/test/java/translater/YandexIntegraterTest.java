@@ -8,21 +8,22 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 
+/** test class to test the obtaining the language list from Yandex API */
+public class YandexIntegraterTest {
 
-public class HttpClientClassTest {
-
+    YandexIntegrater translateTest=new YandexIntegrater();
     String expected = "مرحبا";
 
     @Test
     public void translate_textTest()  {
 
-        String o_test = "english";
-        String t_test = "arabic";
-        String text_test = "Hello";
+        String olTest = "english";
+        String tlTest = "arabic";
+        String textTest = "Hello";
 
         String output1 = null;
         try {
-            output1 = HttpClientClass.translate_text(o_test, t_test, text_test);
+            output1 =translateTest.translateText(olTest, tlTest, textTest);
         } catch (IOException e1) {
             //e.printStackTrace();
             Assert.fail("IO Exceptopn");
