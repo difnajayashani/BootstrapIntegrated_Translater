@@ -75,7 +75,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right2", "right2");
         } catch (Exception e) {
-            fail();
+            e.printStackTrace();
 
         }
 
@@ -89,6 +89,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right2", "right");
         } catch (Exception e) {
+            e.printStackTrace();
             fail();
         }
 
@@ -103,11 +104,12 @@ public class LoginValidateTest {
         boolean res= false;
         try {
             res = LoginValidate.validate(" ", " ");
-        } catch (Exception e) 
+        } catch (Exception e) {
+            e.printStackTrace();
             fail();
         }
 
-        Assert.assertEquals(res,false,"checking empty username and password");
+        Assert.assertEquals(res, false, "checking empty username and password");
 
     }
 
@@ -118,6 +120,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate(" ", "right ");
         } catch (Exception e) {
+            e.printStackTrace();
             fail();
         }
 
@@ -132,6 +135,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right ", " ");
         } catch (Exception e) {
+            e.printStackTrace();
             fail();
         }
 
