@@ -1,5 +1,7 @@
 package servelet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import translater.YandexIntegrater;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
  * servelet which recieves the data entered to the rtanslater form
  */
 public class MyServletTranslate extends HttpServlet {
+
+    private static final Logger LOG = LogManager.getLogger(YandexIntegrater.class);
 
     YandexIntegrater getReply = new YandexIntegrater();
 
@@ -40,7 +44,7 @@ public class MyServletTranslate extends HttpServlet {
             try {
                 textOutput = translate.translateText(ol, tl, textInput);
             } catch (Exception e) {
-                e.printStackTrace();
+                LOG.fatal("Exception occurred in translateText method");
             }
 
 
@@ -48,7 +52,7 @@ public class MyServletTranslate extends HttpServlet {
             try {
                 list = getReply.getLangs();
             } catch (Exception e) {
-                e.printStackTrace();
+                LOG.error("Exception occurred in obtaining language list method");
             }
             request.setAttribute("language_list", list);
 

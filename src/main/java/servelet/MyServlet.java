@@ -1,6 +1,8 @@
 package servelet;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import translater.YandexIntegrater;
 import validate.LoginValidate;
 
@@ -17,6 +19,9 @@ import java.util.ArrayList;
 
 /**sevelet class to take the login form inputs and validate the user*/
 public class MyServlet extends HttpServlet {
+
+    /**create the logger object for logging */
+    private static final Logger LOG = LogManager.getLogger(YandexIntegrater.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -36,18 +41,23 @@ public class MyServlet extends HttpServlet {
 
 
 
-
         /**validate the login by calling validate function */
         boolean valid = false;
         try {
+            LOG.info("Calling the method to validate the user");
             valid = LoginValidate.validate(n, p);
+
+
         } catch (Exception e) {
-            e.printStackTrace();
+          LOG.error("Exception occurred in validating the user");
         }
 
         if (valid) {
+
+                LOG.info("The user is valid");
             try {
                 /** to load the Yandex language list to the form dropdowns using a YandexIntegrater object */
+                LOG.warn(" Calling YandexIntegrater can cause Exception");
                 YandexIntegrater langObj = new YandexIntegrater();
                 ArrayList<String> load = new ArrayList<String>();
                 load = langObj.getLangs();
@@ -72,6 +82,7 @@ public class MyServlet extends HttpServlet {
 
         } else {
 
+            LOG.error("User doesn't exit... Cannot proceed");
             request.setAttribute("error", "Sorry username or password error");
 
             //out.print("<p style=\"color:blue\">Sorry username or password error</p>");

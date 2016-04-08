@@ -1,6 +1,8 @@
 package validate;
 
 import database.DBConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.*;
 
 import org.testng.Assert;
@@ -16,6 +18,9 @@ import static org.testng.Assert.fail;
 /**test class to test the user authentication  */
 public class LoginValidateTest {
 
+
+    /**create the logger object for logging */
+    private static final Logger LOG = LogManager.getLogger(LoginValidateTest.class);
 
     DBConnectionManager dbManager;
     Connection conn =null;
@@ -40,23 +45,24 @@ public class LoginValidateTest {
     /** run only once before the first test method in the current class is invoked.*/
     @BeforeClass
     public void insertUser() throws SQLException {
+
         PreparedStatement statement1 = null;
         String insertQuery ="INSERT INTO user_data (`user_name`, `password`, `f_name`)" +" VALUES ('right', MD5('right'), 'Right')";
         try {
-            conn = DBConnectionManager.getConnection();
+            conn = dbManager.getConnection();
             // create a Statement from the connection
 
             statement1=conn.prepareStatement(insertQuery);
             // insert the data
             statement1.executeUpdate();
             // INSERT INTO `user_data` (`user_name`, `password`, `f_name`) VALUES ('new', MD5('new'), 'New');
-            System.out.println("in beforeClass");
+            LOG.info("in beforeClass");
 
 
         } catch (Exception e)
         {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
+            LOG.error("Got an exception! : {}", e.getMessage());
+
         }finally{
             if(statement1 != null) {
                 statement1.close();
@@ -89,7 +95,8 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right2", "right2");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception occured");
+            fail();
 
         }
 
@@ -105,7 +112,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right2", "right");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception occured");
             fail();
         }
 
@@ -122,7 +129,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate(" ", " ");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception occured");
             fail();
         }
 
@@ -138,7 +145,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate(" ", "right ");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception occured");
             fail();
         }
 
@@ -154,7 +161,7 @@ public class LoginValidateTest {
         try {
             res = LoginValidate.validate("right ", " ");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception occured");
             fail();
         }
 
@@ -167,20 +174,19 @@ public class LoginValidateTest {
         PreparedStatement statement2 = null;
         String deleteQuery ="DELETE  FROM user_data" + " WHERE  user_name = 'right'";
         try {
-            conn = DBConnectionManager.getConnection();
+            conn = dbManager.getConnection();
 
             statement2=conn.prepareStatement(deleteQuery);
 
             // insert the data
             statement2.executeUpdate();
 
-            System.out.println("in afterClass");
+            LOG.info("in afterClass");
             //conn.close();
 
         } catch (Exception e)
         {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
+            LOG.error("Got an exception! : {}", e.getMessage());
         }finally{
             if(statement2 != null){
                 statement2.close();
@@ -193,9 +199,9 @@ public class LoginValidateTest {
 
     /** run only once after all tests in this suite have run.*/
     @AfterSuite
-    public void closeConnection(){
+    public void ConnectionClose(){
         dbManager.closeConnection();
-        System.out.println("After Suite");
+        LOG.info("After Suite");
 
     }
 

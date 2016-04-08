@@ -22,15 +22,16 @@ public class LoginValidate {
      * @return
      */
 
+
     public static boolean validate(String name, String pw) throws Exception {
 
-
+        LOG.info("Inside the user validation against the database method");
         Statement stmt = null;
         ResultSet rs = null;
 
 
         try {
-            LOG.info("Calling the connection object");
+            LOG.info("Calling the database connection object");
             Connection con = DBConnectionManager.getConnection();
 
 
@@ -41,11 +42,13 @@ public class LoginValidate {
             /** execute a query and the result is returned as a ResultSet*/
             LOG.info("Beginning to query the database based on entered details");
             String query = "SELECT * FROM user_data where user_name =\"" + name + "\" and password =md5(\"" + pw + "\"); ";
+            LOG.info("Query Successfully returned");
 
             if(query == null){
                 LOG.error("Query returned from database is NUll");
             }
-            /**create a statement */
+
+            /**create a result set after executing the query */
             rs = stmt.executeQuery(query);
 
 
@@ -60,14 +63,23 @@ public class LoginValidate {
 
         } finally {   /** the ResultSet , statement and connection are explicitly closed*/
             try {
-                if (rs != null) rs.close();
+                if (rs != null)
+                    rs.close();
+                else{
+                    LOG.error("created resultset null");
+                }
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOG.fatal("SQLException related to resultset");
             }
             try {
-                if (stmt != null) stmt.close();
+                if (stmt != null)
+                    stmt.close();
+                else{
+                  LOG.error("created statement null");
+                }
+
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOG.fatal("SQLException related to statement ");
             }
 
         }

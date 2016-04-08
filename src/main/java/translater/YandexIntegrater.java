@@ -59,7 +59,7 @@ public class YandexIntegrater {
 
         try {
             ex1=y.getLangs();
-            LOG.info("translated text is: {}.", ex1);
+            LOG.info("Language list is: {}.", ex1);
         } catch (Exception e) {
             LOG.error("Exception occurred in getting language list", e);
         }
@@ -104,7 +104,7 @@ public class YandexIntegrater {
             listValues.add(nameNodesList.item(i).getAttributes().getNamedItem("value").getNodeValue());
 
         }
-
+        LOG.info("Language list successfully returned");
         return listValues;
 
     }
@@ -120,21 +120,27 @@ public class YandexIntegrater {
 
         String output;
         /** URL sent to the API to get the string translated*/
-        LOG.info("Sending API request to Yandex to get the language translated");
        final String TRANSURL=urls.get(5)+o_lan+"-"+t_lan+"&text="+text_input;
 
         /**send the request to the server thorough YandexIntegrater*/
-        org.apache.http.client.HttpClient httpClient_translate = new DefaultHttpClient();
+        org.apache.http.client.HttpClient httpClientTranslate = new DefaultHttpClient();
+
+        LOG.info("Sending API request to Yandex to get the language translated");
         HttpGet request = new HttpGet(TRANSURL);
 
         HttpResponse response2 ;
         try {
 
-            response2 = httpClient_translate.execute(request);
+            response2 = httpClientTranslate.execute(request);
             HttpEntity entity2= response2.getEntity();
+            LOG.warn("Null Response returns an Exception");
             if(entity2 == null){
                 LOG.error("Response of translating a text is NUll");
 
+
+            }
+            else{
+                LOG.info("Valid Response in text Translate response");
             }
         } catch (IOException e1) {
             throw e1;
@@ -165,7 +171,7 @@ public class YandexIntegrater {
         output = String.valueOf(textTag.item(0).getTextContent());
 
 
-
+        LOG.info("Return the translated text");
         return output;
     }
 

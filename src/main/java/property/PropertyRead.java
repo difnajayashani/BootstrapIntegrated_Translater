@@ -1,5 +1,8 @@
 package property;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -9,6 +12,9 @@ import java.util.Properties;
 /** this class will read the system.properties file to obtain any value of a property*/
 public class PropertyRead {
 
+
+    /**create the logger object for logging */
+    private static final Logger LOG = LogManager.getLogger(PropertyRead.class);
 
     public static Map<Integer, String> result = null;
 
@@ -26,7 +32,7 @@ public class PropertyRead {
             /**read the property file and put it into a Input Stream */
             input = PropertyRead.class.getClassLoader().getResourceAsStream(filename);
             if (input == null) {
-                System.out.println("Sorry, unable to find " + filename);
+                LOG.error("Sorry, unable to find : {} " , filename);
 
             }
 

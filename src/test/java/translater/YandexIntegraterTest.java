@@ -1,6 +1,8 @@
 package translater;
 
 import junit.framework.Assert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -10,6 +12,9 @@ import java.net.URISyntaxException;
 
 /** test class to test the obtaining the language list from Yandex API */
 public class YandexIntegraterTest {
+
+    /**create the logger object for logging */
+    private static final Logger LOG = LogManager.getLogger(YandexIntegrater.class);
 
     YandexIntegrater translateTest=new YandexIntegrater();
     String expected = "مرحبا";
@@ -23,6 +28,7 @@ public class YandexIntegraterTest {
 
         String output1 = null;
         try {
+            LOG.warn("Exception can occure in translateText function");
             output1 =translateTest.translateText(olTest, tlTest, textTest);
         } catch (IOException e1) {
             //e.printStackTrace();
