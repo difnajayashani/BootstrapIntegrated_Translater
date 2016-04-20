@@ -34,6 +34,10 @@ public class LoginValidate {
             LOG.info("Calling the database connection object");
             Connection con = DBConnectionManager.getConnection();
 
+            if(con != null) {
+                LOG.debug("Connection not null");
+            }else
+                LOG.error("Connection NULL");
 
             /** create a statement*/
             stmt = con.createStatement();

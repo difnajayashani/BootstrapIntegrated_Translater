@@ -39,7 +39,9 @@ public class MyServlet extends HttpServlet {
         String n = request.getParameter("username");
         String p = request.getParameter("password");
 
-
+       //**set the logged in user's name *//*
+        request.setAttribute("name", n);
+        LOG.info("Attribute name set");
 
         /**validate the login by calling validate function */
         boolean valid = false;
@@ -54,6 +56,7 @@ public class MyServlet extends HttpServlet {
 
         if (valid) {
 
+
                 LOG.info("The user is valid");
             try {
                 /** to load the Yandex language list to the form dropdowns using a YandexIntegrater object */
@@ -64,10 +67,6 @@ public class MyServlet extends HttpServlet {
                 request.setAttribute("language_list", load);
 
 
-                /**set the logged in user's name */
-                HttpSession session = request.getSession(false);
-                if (session != null)
-                    session.setAttribute("name", n);
 
                 //navigate to the translater page in case login is valid
                 RequestDispatcher rd = request.getRequestDispatcher("translater.jsp");

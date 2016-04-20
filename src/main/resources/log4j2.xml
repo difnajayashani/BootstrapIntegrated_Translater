@@ -3,11 +3,9 @@
 
     <Appenders>
 
-        <RollingFile name="FILE_TRACE" fileName="/home/test/Documents/MAVEN/Bootstrap_Translater/logs/trace_loggers/translater.trace.log"
-                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
+        <RollingFile name="FILE_TRACE" fileName="/home/hsenid/Documents/MAVEN/Bootstrap_Translater/logs/trace_loggers/trace.log"
+                     filePattern="/logs/$${date:yyyy-MM}/trace-%d{MM-dd-yyyy}-%i.log.">
+            <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
 
             <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="ACCEPT"/>
 
@@ -18,12 +16,11 @@
             <DefaultRolloverStrategy max="2"/>
         </RollingFile>
 
-        <RollingFile name="FILE_ERROR" fileName="/home/test/Documents/MAVEN/Bootstrap_Translater/logs/error_loggers/translater.error.log"
-                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
-            /home/test/Documents/MAVEN/Bootstrap_Translater/logs
+        <RollingFile name="FILE_ERROR" fileName="/home/hsenid/Documents/MAVEN/Bootstrap_Translater/logs/error_loggers/error.log"
+                     filePattern="/logs/$${date:yyyy-MM}/error-%d{MM-dd-yyyy}-%i.log.">
+
+            <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
+
 
             <Policies>
                 <TimeBasedTriggeringPolicy />
@@ -39,8 +36,6 @@
     </Appenders>
 
     <Loggers>
-
-        <logger name="com.memorynotfound" level="info"/>
 
 
         <Root level="all">

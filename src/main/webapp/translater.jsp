@@ -160,7 +160,9 @@
                  <div class="form-group ">
 
                        <p  style="color:blue"> Logged in as
-                     <%=session.getAttribute("name")%>
+                     <%=request.getAttribute("name")%>
+
+
 
                         </p>
 

@@ -47,7 +47,7 @@ public class LoginValidateTest {
     public void insertUser() throws SQLException {
 
         PreparedStatement statement1 = null;
-        String insertQuery ="INSERT INTO user_data (`user_name`, `password`, `f_name`)" +" VALUES ('right', MD5('right'), 'Right')";
+        String insertQuery ="INSERT INTO user_data (`user_name`, `password`, `age`)" +" VALUES ('right', MD5('right'), 28)";
         try {
             conn = dbManager.getConnection();
             // create a Statement from the connection
