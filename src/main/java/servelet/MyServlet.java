@@ -69,7 +69,7 @@ public class MyServlet extends HttpServlet {
 
 
                 //navigate to the translater page in case login is valid
-                RequestDispatcher rd = request.getRequestDispatcher("translater.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("tab.jsp");
                 rd.forward(request, response);
             } catch (Exception e) {
                 throw new ServletException(e);

@@ -6,9 +6,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Translator Page</title>
+
+        <!-- CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+        <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/form-elements.css">
+
+
+        <!-- Javascript -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/jquery.backstretch.min.js"></script>
+        <script src="js/scripts.js"></script>
         <script src="bootstrap/js/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         
@@ -27,7 +37,7 @@
 
     </head>
 
-    <body class="jumbotron" >
+    <body class >
     	<div class="container text-center">
          	<h1><strong>Translator Page</strong></h1>
       

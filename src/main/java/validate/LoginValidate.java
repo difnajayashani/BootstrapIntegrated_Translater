@@ -1,6 +1,9 @@
 package validate;
 
 
+import c3p0.sample.DatabaseUtility;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import database.DBConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,19 +31,23 @@ public class LoginValidate {
         LOG.info("Inside the user validation against the database method");
         Statement stmt = null;
         ResultSet rs = null;
+        Connection connection= null;
 
 
         try {
             LOG.info("Calling the database connection object");
-            Connection con = DBConnectionManager.getConnection();
+           // Connection con = DBConnectionManager.getConnection();
+            ComboPooledDataSource dataSource = DatabaseUtility.getDataSource();
+            connection = dataSource.getConnection();
 
-            if(con != null) {
+            if(connection != null) {
                 LOG.debug("Connection not null");
+                /** create a statement*/
+                stmt = connection.createStatement();
             }else
                 LOG.error("Connection NULL");
 
-            /** create a statement*/
-            stmt = con.createStatement();
+
 
 
             /** execute a query and the result is returned as a ResultSet*/
@@ -53,12 +60,15 @@ public class LoginValidate {
             }
 
             /**create a result set after executing the query */
-            rs = stmt.executeQuery(query);
+            if (stmt != null) {
+                rs = stmt.executeQuery(query);
+            }
 
 
-
-            if (rs.next()) {
-                return true;
+            if (rs != null) {
+                if (rs.next()) {
+                    return true;
+                }
             }
 
 
@@ -85,6 +95,8 @@ public class LoginValidate {
             } catch (SQLException e) {
                 LOG.fatal("SQLException related to statement ");
             }
+            if(connection != null)
+                connection.close();
 
         }
         return false;
