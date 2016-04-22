@@ -16,61 +16,44 @@
   <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<ul id = "myTab" class = "nav nav-tabs">
-  <li class = "active">
-    <a href = "#home" data-toggle = "tab">
-      Tutorial Point Home
-    </a>
-  </li>
-
-  <li><a href = "#ios" data-toggle = "tab">iOS</a></li>
-
-  <li class = "dropdown">
-    <a href = "#" id = "myTabDrop1" class = "dropdown-toggle" data-toggle = "dropdown">
-      Java
-      <b class = "caret"></b>
-    </a>
-
-    <ul class = "dropdown-menu" role = "menu" aria-labelledby = "myTabDrop1">
-      <li><a href = "#jmeter" tabindex = "-1" data-toggle = "tab">jmeter</a></li>
-      <li><a href = "#ejb" tabindex = "-1" data-toggle = "tab">ejb</a></li>
-    </ul>
-
-  </li>
-
-</ul>
-
-<div id = "myTabContent" class = "tab-content">
-
-  <div class = "tab-pane fade in active" id = "home">
-    <p>Tutorials Point is a place for beginners in all technical areas.
-      This website covers most of the latest technologies and explains each of
-      the technology with simple examples. You also have a
-      <b>tryit</b> editor, wherein you can edit your code and
-      try out different possibilities of the examples.</p>
+<div class="container">
+  <h2>Tab Navigation via Data Attributes</h2>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#mydropdown1" data-toggle="tab">HTML</a></li>
+    <li><a href="#mydropdown2" data-toggle="tab">CSS</a></li>
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle">JS Frameworks<span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a data-toggle="tab" href="#dropdown1">JavaScript</a></li>
+        <li><a data-toggle="tab" href="#dropdown2">JQuery</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div id="mydropdown1" class="tab-pane fade in active">
+      <h3>HTML</h3>
+      <p>HTML stands for Hyper Text Markup Language. A markup language is a set of markup tags.
+        HTML documents contain HTML tags and plain textHTML documents are also called web pages.</p>
+    </div>
+    <div id="mydropdown2" class="tab-pane fade">
+      <h3>CSS</h3>
+      <p>CSS stands for Cascading Style Sheets. Styles define how to display HTML elements.
+        External Style Sheets can save a lot of work. External Style Sheets are stored in CSS files.</p>
+    </div>
+    <div id="dropdown1" class="tab-pane fade">
+      <h3>JavaScript</h3>
+      <p>JavaScript is the programming language of the Web. JavaScript is the most popular programming language in the world.
+        All modern HTML pages are using JavaScript.It is the language for HTML, for the Web, for computers, servers, laptops, tablets, smart phones, and more.
+      </p>
+    </div>
+    <div id="dropdown2" class="tab-pane fade">
+      <h3>JQuery</h3>
+      <p>jQuery is a JavaScript Library. jQuery greatly simplifies JavaScript programming.
+        jQuery is easy to learn. jQuery is a lightweight, "write less, do more", JavaScript library.
+        The purpose of jQuery is to make it much easier to use JavaScript on your website.</p>
+    </div>
   </div>
-
-  <div class = "tab-pane fade" id = "ios">
-    <p>iOS is a mobile operating system developed and distributed
-      by Apple Inc. Originally released in 2007 for the iPhone, iPod Touch,
-      and Apple TV. iOS is derived from OS X, with which it shares the
-      Darwin foundation. iOS is Apple's mobile version of the OS X
-      operating system used on Apple computers.</p>
-  </div>
-
-  <div class = "tab-pane fade" id = "jmeter">
-    <p>jMeter is an Open Source testing software. It is 100% pure Java
-      application for load and performance testing.</p>
-  </div>
-
-  <div class = "tab-pane fade" id = "ejb">
-    <p>Enterprise Java Beans (EJB) is a development architecture for
-      building highly scalable and robust enterprise level applications to be
-      deployed on J2EE compliant Application Server such as JBOSS, Web Logic etc.</p>
-  </div>
-
 </div>
-
 </body>
+
 </html>
