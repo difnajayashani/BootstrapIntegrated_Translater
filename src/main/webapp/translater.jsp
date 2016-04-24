@@ -33,22 +33,23 @@
 
         }
         </script>
-        
-
     </head>
 
-    <body class >
-    	<div class="container text-center">
-         	<h1><strong>Translator Page</strong></h1>
-      
-         	
-        		 <form class="form-horizontal" role="form" method="post" action="MyServletTranslate" >
-        		 	<div class="form-group "></div>
-          			<div class="form-group ">
-						
-                   		 <div class="col-sm-5">
+
+    <body >
+
+       <div class="row">
+        <div class="container-fluid">
+          <div class="jumbotron">
+
+                <center>
+
+                    <form class="form-horizontal" role="form" method="post" action="MyServletTranslate" >
+        		 	<div class="form-group ">
+						 <div class="col-sm-6">
+						      <label class="sr-only" for="text_origi">Place your text here</label>
                     		<%
-                   				out.println("<textarea name=\"original-text\" id=\"text_origi\" rows=\"15\" cols=\"50\">");
+                   				out.println("<textarea name=\"original-text\" class=\"form-control\" rows=\"10\" cols=\"10\"  id=\"text_origi\" >");
                             	String s1= (String)request.getAttribute("original");
                                         if (s1 != null){
                                             out.println(s1);
@@ -58,31 +59,8 @@
                     		%>
                    		</div>
 
-                     	<div class="col-sm-2 ">
-                     		<div class="form-group block-center"></div>
-                     		<div class="form-group block-center"></div>
-                     		<div class="form-group block-center"></div>
-                     		<div class="form-group block-center">
-                     	 		<input type="submit" class="btn btn-primary  btn-lg center-block" value=Translate  name="submit"/>
-                     	     </div> 
-                     	     <div class="form-group block-center"></div>
-                     	     <div class="form-group block-center"></div>
-                     	     <div class="form-group block-center"></div>
-                     	     
-                     	      <div class="form-group block-center">
-                     	      	   	<button type="button" class="btn btn-primary"  onclick="myFunction()">Swap the Text</button>
-                     	      </div>
-                     	      
-                     	     <div class="form-group block-center"></div>
-                     	     <div class="form-group block-center"></div>
-                     	     <div class="form-group block-center"></div>
-                     	     
-                     	     <div class="form-group block-center">      
-                        	<input type="reset" class="btn btn-primary  btn-lg" value="Reset"/>
-                        	</div>
-                     	</div>
-                     	<div class="col-sm-5">
-                     	<textarea name="translated-text" id="text_trans" rows="15" cols="50">
+                     	 <div class="col-sm-6">
+                     	    <textarea class="form-control"  name="translated-text" id="text_trans" rows="10" cols="10">
 
                         	<% String s2= (String)request.getAttribute("translated");
                         		if (s2 != null){
@@ -92,10 +70,11 @@
 
                         	%>
                     	</textarea></div>
-                </div>
-                <div class="form-group ">
-                	<div class=" col-sm-5">
-                   		<select class="form-control" name="original-lang" id="original" style="z-index: 1; width: 200px; padding:0px; position:absolute;">
+                    </div>
+
+                    <div class="form-group ">
+                	     <div class=" col-sm-6">
+                   		    <select class="form-control" name="original-lang" id="original" style="z-index: 1; width: 200px; padding:0px; position:absolute;">
 
                             <%
 
@@ -114,19 +93,14 @@
                                         out.println("<option>"+buffer.get(i)+"</option>");
 
                               }
-
-
                             %>
 
+                            </select>
 
+                         </div>
 
-                       </select>
-
-                   </div>
-                   <div class="col-sm-2"></div>
-
-				   <div class=" col-sm-5">
-                   <select class="form-control" name="translate-lang" id="translated" style="z-index: 1; width: 200px; padding:0px; position:absolute;">
+				         <div class=" col-sm-6">
+                            <select class="form-control" name="translate-lang" id="translated" style="z-index: 1; width: 200px; padding:0px; position:absolute;">
                             <%
 
                               String buf_sel2=(String)request.getAttribute("selected_tl");
@@ -141,59 +115,62 @@
 
                                         out.println("<option>"+buffer.get(i)+"</option>");
 								}
-                          
+
                             %>
 
-                        </select>
+                            </select>
 
-                   </div>
+                         </div>
 
-                </div>
-                 <div class="form-group "></div>
-                 <div class="form-group "></div>
-
-                 <div class="form-group ">
-                     <div class=" col-sm-5">
-            
-                     </div>
-                     <div class=" col-sm-2"></div>
-                     <div class=" col-sm-5"></div>
-                 </div>
-
-                 <div class="form-group ">
-
-                    <div id="logout">
-
-                        <a href="http://localhost:8080/Bootstrap_Translater/LogoutServlet">Logout</a>
                     </div>
-                 </div>
-                 <div class="form-group ">
 
-                       <p  style="color:blue"> Logged in as
-                     <%=request.getAttribute("name")%>
+                <!-- Form buttons -->
 
-
-
-                        </p>
+                    <div class="form-group "></div>
+                    <div class="form-group "></div>
+                    <div class="form-group ">
 
 
-                </div>
+                          <div class=" col-sm-6">
 
 
+                                     <input type="submit" class="btn btn-primary  btn-lg " value=Translate  name="submit"/>
 
-			
-        	</form>
+                 	                <button type="button" class="btn btn-primary"  onclick="myFunction()">Swap the Text</button>
 
-		</div>
-  
-    <p>&nbsp;</p>
-    <p> Powered by Yandex.Translate <a href="http://translate.yandex.com/.">http://translate.yandex.com/.</a></p>
+                                    <input type="reset" class="btn btn-primary  btn-lg" value="Reset"/>
 
-    </body>
 
+                          </div>
+                          <div class=" col-sm-6"></div>
+
+
+                    </div>
 
 
 
+        	    </form>
+
+		</center>
+     </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="form-group ">
+         <div id="logout">
+              <a href="http://localhost:8080/Bootstrap_Translater/LogoutServlet">Logout</a>
+         </div>
+    </div>
+
+    <div class="form-group ">
+         <p  style="color:blue"> Logged in as
+              <%=request.getAttribute("name")%>
+         </p>
+    </div>
+   </div>
+ </body>
 
 
 </html>
