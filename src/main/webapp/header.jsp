@@ -30,7 +30,7 @@
 <body>
 
   <div class="col-sm-8 col-sm-offset-2 text">
-    <h1><strong>Translater</strong> Login &amp; Register Forms</h1>
+
     <div class="description">
       <p>
         This is a free responsive <strong>"Online Translater Page"</strong> YOu can Sign-in and use it.
