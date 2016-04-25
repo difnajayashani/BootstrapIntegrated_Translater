@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+  <title></title>
 
   <!-- CSS -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,15 +29,15 @@
 
 <body>
 
-  <div class="col-sm-8 col-sm-offset-2 text">
-    <h1><strong>Translater</strong> Login &amp; Register Forms</h1>
-    <div class="description">
-      <p>
-        This is a free responsive <strong>"Online Translater Page"</strong> YOu can Sign-in and use it.
-        Download it on <a href="http://azmind.com" target="_blank"><strong>AZMIND</strong></a>,
-       Authenticated users can add more users !
-      </p>
-    </div>
+<div class="col-sm-8 col-sm-offset-2 text">
+
+  <div class="description">
+    <p>
+      This is a free responsive <strong>"Online Translater Page"</strong> YOu can Sign-in and use it.
+      Download it on <a href="http://azmind.com" target="_blank"><strong>AZMIND</strong></a>,
+      Authenticated users can add more users !
+    </p>
+  </div>
 </div>
 
 </body>

@@ -11,6 +11,12 @@ body{
     line-height: 30px;
     text-align: center;
 }
+.jumbotron{
+    width:70% ;
+
+}
+
+
 
 
 h1, h2 {
@@ -53,9 +59,11 @@ h3 {
 .top-content .description a:focus { border-bottom: 1px dotted #fff; }
 
 .form-box {
-    margin-top: 70px;
+    margin-top: 50px;
     width: 40%;
 }
+
+
 
 .form-top {
     overflow: hidden;
@@ -96,7 +104,8 @@ h3 {
 }
 
 .form-bottom form button.btn {
-    width: 100%;
+    width: 150px;
+
 }
 
 .form-bottom form .input-error {
