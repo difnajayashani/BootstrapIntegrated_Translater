@@ -39,7 +39,7 @@ public class MyServlet extends HttpServlet {
         String n = request.getParameter("username");
         String p = request.getParameter("password");
 
-       //**set the logged in user's name *//*
+        //**set the logged in user's name *//*
         request.setAttribute("name", n);
         LOG.info("Attribute name set");
 
@@ -51,13 +51,13 @@ public class MyServlet extends HttpServlet {
 
 
         } catch (Exception e) {
-          LOG.error("Exception occurred in validating the user");
+            LOG.error("Exception occurred in validating the user");
         }
 
         if (valid) {
 
 
-                LOG.info("The user is valid");
+            LOG.info("The user is valid");
             try {
                 /** to load the Yandex language list to the form dropdowns using a YandexIntegrater object */
                 LOG.warn(" Calling YandexIntegrater can cause Exception");
@@ -69,7 +69,7 @@ public class MyServlet extends HttpServlet {
 
 
                 //navigate to the translater page in case login is valid
-                RequestDispatcher rd = request.getRequestDispatcher("tab.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("navbar.jsp");
                 rd.forward(request, response);
             } catch (Exception e) {
                 throw new ServletException(e);

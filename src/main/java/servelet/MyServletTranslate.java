@@ -61,7 +61,7 @@ public class MyServletTranslate extends HttpServlet {
             request.setAttribute("selected_tl", tl);
             request.setAttribute("original", textInput);
             request.setAttribute("translated", textOutput);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/translater.jsp");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/home.jsp");
             rd.forward(request, response);
 
 

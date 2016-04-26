@@ -17,8 +17,6 @@ body{
 }
 
 
-
-
 h1, h2 {
     margin-top: 10px;
     font-size: 30px;
@@ -111,7 +109,6 @@ h3 {
 .form-bottom form .input-error {
     border-color: #19b9e7;
 }
-
 
 
 /***** Footer *****/

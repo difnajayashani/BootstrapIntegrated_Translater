@@ -32,6 +32,13 @@
 
   </servlet>
 
+  <servlet>
+    <servlet-name>servlet4</servlet-name>
+    <servlet-class>servelet.AddUserServlet</servlet-class>
+    <load-on-startup>4</load-on-startup>
+
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>servlet1</servlet-name>
     <url-pattern>/MyServlet</url-pattern>
@@ -47,6 +54,12 @@
     <servlet-name>servlet3</servlet-name>
     <url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>servlet4</servlet-name>
+    <url-pattern>/AddUserServlet</url-pattern>
+  </servlet-mapping>
+
 
 
 

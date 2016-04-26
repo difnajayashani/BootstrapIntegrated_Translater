@@ -19,12 +19,6 @@
   <link rel="stylesheet" href="css/form-elements.css">
 
 
-  <!-- Javascript -->
-  <script src="js/jquery-1.11.1.min.js"></script>
-  <script src="js/jquery.backstretch.min.js"></script>
-  <script src="js/scripts.js"></script>
-  <script src="bootstrap/js/jquery.min.js"></script>
-  <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body>

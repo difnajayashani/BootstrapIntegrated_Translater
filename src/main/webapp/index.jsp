@@ -27,6 +27,21 @@
 
 
 <body >
+
+<!-- Nav Bar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Online Translater Website</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+
+        </ul>
+    </div>
+</nav>
+
 <!-- Top content -->
 <div class="top-content">
 

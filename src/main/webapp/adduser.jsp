@@ -6,10 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
   <title>Add New User</title>
 
@@ -23,14 +22,6 @@
   <link rel="stylesheet" href="css/form-elements.css">
 
 
-  <!-- Javascript -->
-  <script src="js/jquery-1.11.1.min.js"></script>
-  <script src="js/jquery.backstretch.min.js"></script>
-  <script src="js/scripts.js"></script>
-  <script src="bootstrap/js/jquery.min.js"></script>
-  <script src="bootstrap/js/bootstrap.min.js"></script>
-
-
 
 </head>
 
@@ -39,71 +30,76 @@
 
 <!-- Top content -->
 
-      <div class="row">
-      <center>
+
+     <div class="row">
+        <center>
 
         <div class="form-box">
 
           <div class="form-top">
 
-        <div class="form-top-left">
+             <div class="form-top-left">
 
-          <h3>New User Sign up</h3>
-          <p>Fill in the form below to add a new user:</p>
-        </div>
+                 <h3>New User Sign up</h3>
+                 <p>Fill in the form below to add a new user:</p>
+             </div>
 
-        <div class="form-top-right">
-          <i class="fa fa-pencil"></i>
-        </div>
+              <div class="form-top-right">
+                  <i class="fa fa-pencil"></i>
+              </div>
 
-      </div>
-      <div class="form-bottom">
-
-        <form role="form" action="" method="post" class="registration-form">
-
-          <div class="form-group">
-            <label class="control-label col-md-6">First name *</label>
-            <div class="col-md-6">
-              <input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name" required>
-            </div>
           </div>
 
-          <div class="form-group"></div>
+            <div class="form-bottom">
 
-          <div class="form-group">
-            <label class="control-label col-sm-6" >Last name</label>
-            <div class="col-sm-6">
-              <input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
-            </div>
-          </div>
+             <form role="form" action="AddUserServlet" method="post" class="registration-form">
 
-          <div class="form-group"></div>
 
-          <div class="form-group">
-            <label class="control-label col-sm-6" >Date of Birth *</label>
-            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-6">First name *</label>
+                    <div class="col-md-6">
+                        <input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name" required>
 
-              <jsp:include page="datepick/datepickBasic.jsp">
-                <jsp:param name="title" value="date"/>
-              </jsp:include>
-              <%--<input type="text" id="startdate" placeholder="Date of Birth..." class="form-birth-date form-control" size="30" required>--%>
-            </div>
-          </div>
 
-          <div class="form-group"></div>
+                     </div>
+                </div>
 
-          <div class="form-group">
-            <label for="country" class="control-label col-sm-6" >Country *</label>
-            <div class="col-sm-6">
-              <select class="form-control" name="country" id="country" required>
-                <option value="1">Sri Lanka</option>
-                <option value="2">India</option>
-                <option value="3">Japan</option>
-                <option value="4">Australia</option>
-              </select>
+                <div class="form-group"></div>
 
-            </div>
-          </div>
+                 <div class="form-group">
+                    <label class="control-label col-sm-6" >Last name</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
+                    </div>
+                </div>
+
+                 <div class="form-group"></div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-6" >Date of Birth *</label>
+                    <div class="col-sm-6">
+
+                   <%-- <jsp:include page="datepick/datepickBasic.jsp">
+                            <jsp:param name="title" value="date"/>
+                    </jsp:include>--%>
+                <input type="text" name="startdate" id="startdate" placeholder="Date of Birth..." class="form-birth-date form-control" size="30" required>
+                    </div>
+                </div>
+
+                <div class="form-group"></div>
+
+                <div class="form-group">
+                    <label for="country" class="control-label col-sm-6" >Country *</label>
+                    <div class="col-sm-6">
+                    <select class="form-control" name="country" id="country" required>
+                        <option value="Sri Lanka">Sri Lanka</option>
+                        <option value="India">India</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Australia">Australia</option>
+                    </select>
+
+                    </div>
+                </div>
 
           <div class="form-group"></div>
 
@@ -113,6 +109,7 @@
               <input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email" required>
             </div>
           </div>
+
 
 
           <div class="form-group">
@@ -131,6 +128,7 @@
             </div>
 
           </div>
+
 
           <div class="form-group"></div>
 
@@ -160,6 +158,34 @@
             <button type="submit" class="btn">Add User</button>
 
           </div>
+
+                 <div class="form-group">
+
+                     <div class="col-sm-4"></div>
+
+                     <div class="col-sm-4">
+
+                         <p style="color:red">
+
+                             <%
+
+                                 String s= (String)request.getAttribute("success");
+
+                                 if(s!= null){
+
+                                     out.println(s);
+                                 }
+
+                             %>
+                         </p>
+
+
+                     </div>
+
+                     <div class="col-sm-4"></div>
+
+
+                 </div>
 
         </form>
 

@@ -47,7 +47,12 @@ public class DatabaseUtility {
         try {
             ComboPooledDataSource dataSource = DatabaseUtility.getDataSource();
             connection = dataSource.getConnection();
-            pstmt = connection.prepareStatement("SELECT * FROM user_data");
+            String name="difna";
+            String pw="difna";
+            String query = "SELECT * FROM user_data where user_name =\"" + name + "\" ; ";
+//            pstmt = connection.prepareStatement("SELECT * FROM user_data");
+            pstmt = connection.prepareStatement(query);
+
 
             System.out.println("The Connection Object is of Class: " + connection.getClass());
 

@@ -4,7 +4,6 @@ package validate;
 import c3p0.sample.DatabaseUtility;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import database.DBConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,7 +51,8 @@ public class LoginValidate {
 
             /** execute a query and the result is returned as a ResultSet*/
             LOG.info("Beginning to query the database based on entered details");
-            String query = "SELECT * FROM user_data where user_name =\"" + name + "\" and password =md5(\"" + pw + "\"); ";
+//            String query = "SELECT * FROM user_data where user_name =\"" + name + "\" and password =md5(\"" + pw + "\"); ";
+            String query = "SELECT * FROM user_data where user_name =\"" + name + "\" ; ";
             LOG.info("Query Successfully returned");
 
             if(query == null){
