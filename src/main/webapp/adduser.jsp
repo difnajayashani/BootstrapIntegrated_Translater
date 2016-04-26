@@ -22,6 +22,18 @@
   <link rel="stylesheet" href="css/form-elements.css">
 
 
+<<<<<<< HEAD
+=======
+  <!-- Javascript -->
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <script src="js/jquery.backstretch.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="bootstrap/js/jquery.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+
+
+
+>>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
 
 </head>
 
@@ -51,9 +63,15 @@
           </div>
 
             <div class="form-bottom">
+<<<<<<< HEAD
 
              <form role="form" action="AddUserServlet" method="post" class="registration-form">
 
+=======
+
+             <form role="form" action="" method="post" class="registration-form">
+
+>>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
 
                 <div class="form-group">
                     <label class="control-label col-md-6">First name *</label>
@@ -79,10 +97,17 @@
                     <label class="control-label col-sm-6" >Date of Birth *</label>
                     <div class="col-sm-6">
 
+<<<<<<< HEAD
                    <%-- <jsp:include page="datepick/datepickBasic.jsp">
                             <jsp:param name="title" value="date"/>
                     </jsp:include>--%>
                 <input type="text" name="startdate" id="startdate" placeholder="Date of Birth..." class="form-birth-date form-control" size="30" required>
+=======
+                    <jsp:include page="datepick/datepickBasic.jsp">
+                            <jsp:param name="title" value="date"/>
+                    </jsp:include>
+              <%--<input type="text" id="startdate" placeholder="Date of Birth..." class="form-birth-date form-control" size="30" required>--%>
+>>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
                     </div>
                 </div>
 
@@ -92,10 +117,17 @@
                     <label for="country" class="control-label col-sm-6" >Country *</label>
                     <div class="col-sm-6">
                     <select class="form-control" name="country" id="country" required>
+<<<<<<< HEAD
                         <option value="Sri Lanka">Sri Lanka</option>
                         <option value="India">India</option>
                         <option value="Japan">Japan</option>
                         <option value="Australia">Australia</option>
+=======
+                        <option value="1">Sri Lanka</option>
+                        <option value="2">India</option>
+                        <option value="3">Japan</option>
+                        <option value="4">Australia</option>
+>>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
                     </select>
 
                     </div>
@@ -159,6 +191,7 @@
 
           </div>
 
+<<<<<<< HEAD
                  <div class="form-group">
 
                      <div class="col-sm-4"></div>
@@ -187,6 +220,8 @@
 
                  </div>
 
+=======
+>>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
         </form>
 
       </div>
