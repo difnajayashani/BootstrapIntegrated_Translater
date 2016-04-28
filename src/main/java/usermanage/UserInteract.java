@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -22,7 +21,7 @@ public class UserInteract {
     private static final Logger LOG = LogManager.getLogger(UserInteract.class);
 
     private static PreparedStatement stmt = null;
-    private static ResultSet rs = null;
+
     private static Connection connection= null;
 
 
@@ -31,15 +30,18 @@ public class UserInteract {
     public static boolean insertUser(String a,String b,String c,String d,String f,String g,String h,String i)throws Exception{
 
         LOG.info("Inside the userInsert method");
+        LOG.info("value of i1 : {}",i);
+       /* int i2 = Integer.parseInt(i);
 
-
-
+        LOG.info("value of i2 : {}",i2);*/
         try {
             LOG.info("Calling the database connection object");
             ComboPooledDataSource dataSource = DatabaseUtility.getDataSource();
             connection = dataSource.getConnection();
 
-            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`e_mail`)" +" VALUES (\"" + a + "\",\"" + b + "\", \"" +c + "\",\"" + d + "\", \"" + f + "\",\"" + g  + "\",\"" +h + "\" )";
+
+
+            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`e_mail`,`mobile`)" +" VALUES (\"" + a + "\",\"" + b + "\", \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%Y-%m-%d'),\"" + g  + "\",\"" +h + "\" ,\"" +i + "\")";
 
             if(connection != null) {
                 LOG.debug("Connection not null");
@@ -90,6 +92,8 @@ public class UserInteract {
         }finally {
             if (stmt != null) {
                 stmt.close();
+            } if (connection != null) {
+                connection.close();
             }
 
         }
@@ -98,3 +102,6 @@ public class UserInteract {
      return true;
     }
 }
+
+
+/** method to edit the user details**/

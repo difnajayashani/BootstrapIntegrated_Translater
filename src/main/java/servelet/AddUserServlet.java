@@ -4,7 +4,7 @@ package servelet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import usermanage.UserInteract;
-import usermanage.UserValidate;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,19 +32,22 @@ public class AddUserServlet  extends HttpServlet {
 
         String f_name = request.getParameter("form-first-name");
         String l_name = request.getParameter("form-last-name");
-        String date = request.getParameter("startdate");
+        String date = request.getParameter("date");
         String country = request.getParameter("country");
         String email = request.getParameter("form-email");
         String mobile = request.getParameter("form-mobile");
         String u_name = request.getParameter("username");
         String pw = request.getParameter("password");
 
+        LOG.info("Date read from form! : {}", date);
+       /* LOG.info("Calling date Validation method");
+        String date2=UserValidate.isValidDate(date);*/
 
         try {
             LOG.info("Calling dataValidation method");
-            boolean dateValid= UserValidate.isValidDate(date);
+//            boolean dateValid= UserValidate.isValidDate(date);
 
-            if(dateValid) {
+
                 LOG.info("Calling userInsert method");
                 boolean success = UserInteract.insertUser(u_name, pw, f_name, l_name, date, country, email, mobile);
 
@@ -59,18 +62,18 @@ public class AddUserServlet  extends HttpServlet {
                     //give user sign up success message
                 }
 
-            }
 
-            else{
+
+       /*     else{
                 LOG.warn("User is not valid");
                 // error pop up message for invalid user credentials
-
-                JOptionPane.showMessageDialog(new JFrame()," Enter valid date", "Error",
+*/
+                JOptionPane.showMessageDialog(new JFrame()," Successfully added a user", "Congrates !",
                         JOptionPane.ERROR_MESSAGE);
 
                 RequestDispatcher rd = request.getRequestDispatcher("adduser.jsp");
                 rd.include(request, response);
-            }
+
         } catch (Exception e) {
             LOG.error("Got an exception! : {}", e.getMessage());
         }

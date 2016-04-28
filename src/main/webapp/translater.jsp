@@ -15,15 +15,6 @@
     <link rel="stylesheet" href="css/form-elements.css">
 
 
-<<<<<<< HEAD
-=======
-    <!-- Javascript -->
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/jquery.backstretch.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="bootstrap/js/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
->>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
 
     <script>
         function myFunction(){
@@ -44,21 +35,16 @@
 <div class="row">
     <div class="container-fluid">
         <center>
-<<<<<<< HEAD
             <div class="jumbotron">
-=======
-        <div class="jumbotron">
->>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
 
-            <center>
+                    <center>
 
-<<<<<<< HEAD
-                    <form class="form-horizontal" role="form" method="post" action="MyServletTranslate" >
-                        <div class="form-group ">
-                            <div class="col-sm-6">
+                        <form class="form-horizontal" role="form" method="post" action="MyServletTranslate" >
+                            <div class="form-group ">
+                                <div class="col-sm-6">
 
                                 <%
-                                    out.println("<textarea name=\"original-text\" class=\"form-control\" rows=\"20\" cols=\"10\"  id=\"text_origi\" >");
+                                    out.println("<textarea name=\"original-text\" class=\"form-control\" rows=\"20\" cols=\"20\"  id=\"text_origi\" >");
                                     String s1= (String)request.getAttribute("original");
                                     if (s1 != null){
                                         out.println(s1);
@@ -66,10 +52,11 @@
 
                                     out.println("</textarea>");
                                 %>
-                            </div>
+                                </div>
 
-                            <div class="col-sm-6">
-                                <textarea class="form-control"  name="translated-text" id="text_trans" rows="100" cols="10">
+                                <div class="col-sm-6">
+
+                                    <textarea class="form-control"  name="translated-text" id="text_trans" rows="100" cols="20">
 
                                     <% String s2= (String)request.getAttribute("translated");
                                         if (s2 != null){
@@ -78,59 +65,11 @@
 
 
                                     %>
-                                </textarea></div>
+                                </textarea>
+                                </div>
                         </div>
 
-                        <div class="form-group ">
-                            <div class=" col-sm-6">
-                                <select class="form-control" name="original-lang" id="original" style="z-index: 1; width: 200px; padding:0px; position:absolute;">
 
-                                    <%
-
-                                        String buf_sel1=(String)request.getAttribute("selected_ol");
-                                        ArrayList<String>  buffer=new ArrayList<String>();
-                                        buffer= (ArrayList<String>)request.getAttribute("language_list");
-
-                                        for(int i=0;i<buffer.size();i++){
-
-                                            if( buf_sel1 !=null ){
-                                                out.println("<option>" + buf_sel1 + "</option>");
-                                                break;
-                                            }
-                                            else
-
-                                                out.println("<option>"+buffer.get(i)+"</option>");
-
-                                        }
-                                    %>
-=======
-                <form class="form-horizontal" role="form" method="post" action="MyServletTranslate" >
-                    <div class="form-group ">
-                        <div class="col-sm-6">
-
-                            <%
-                                out.println("<textarea name=\"original-text\" class=\"form-control\" rows=\"20\" cols=\"10\"  id=\"text_origi\" >");
-                                String s1= (String)request.getAttribute("original");
-                                if (s1 != null){
-                                    out.println(s1);
-                                }
-
-                                out.println("</textarea>");
-                            %>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <textarea class="form-control"  name="translated-text" id="text_trans" rows="100" cols="10">
-
-                                <% String s2= (String)request.getAttribute("translated");
-                                    if (s2 != null){
-                                        out.println(s2);
-                                    }
-
-
-                                %>
-                            </textarea></div>
-                    </div>
 
                     <div class="form-group ">
                         <div class=" col-sm-6">
@@ -154,11 +93,10 @@
 
                                     }
                                 %>
->>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
+
 
                                 </select>
 
-<<<<<<< HEAD
                             </div>
 
                             <div class=" col-sm-6">
@@ -179,51 +117,23 @@
                                         }
 
                                     %>
-=======
-                        </div>
+                                    </select>
 
-                        <div class=" col-sm-6">
-                            <select class="form-control" name="translate-lang" id="translated" style="z-index: 1; width: 200px; padding:0px; position:absolute;">
-                                <%
-
-                                    String buf_sel2=(String)request.getAttribute("selected_tl");
-                                    ArrayList<String>  buffer2=new ArrayList<String>();
-                                    buffer2= (ArrayList<String>)request.getAttribute("language_list");
-                                    for(int i=0;i<buffer2.size();i++){
-                                        if( buf_sel2 !=null ){
-                                            out.println("<option>" + buf_sel2 + "</option>");
-                                            break;
-                                        }
-                                        else
-
-                                            out.println("<option>"+buffer.get(i)+"</option>");
-                                    }
-
-                                %>
->>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
-
-                                </select>
-
-<<<<<<< HEAD
                             </div>
-=======
-                        </div>
->>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
+
 
                         </div>
 
-<<<<<<< HEAD
-                        <!-- Form buttons -->
-=======
+
                     <!-- Form buttons -->
->>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
+
 
                         <div class="form-group "></div>
                         <div class="form-group "></div>
                         <div class="form-group ">
 
 
-<<<<<<< HEAD
+
                             <div class=" col-sm-6">
 
 
@@ -236,39 +146,21 @@
 
                             </div>
                             <div class=" col-sm-6"></div>
-=======
-                        <div class=" col-sm-6">
 
-
-                            <input type="submit" class="btn btn-primary  " value=Translate  name="submit"/>
-
-                            <button type="button" class="btn btn-primary"  onclick="myFunction()">Swap the Text</button>
-
-                            <input type="reset" class="btn btn-primary" value="Reset"/>
-
-
-                        </div>
-                        <div class=" col-sm-6"></div>
->>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
 
 
                         </div>
 
 
 
-<<<<<<< HEAD
                     </form>
 
                 </center>
             </div>
-        </center>
-=======
-                </form>
 
-            </center>
-        </div>
+
          </center>
->>>>>>> 0eecb94df5e993ba7be689261b99071a3d61e31b
+
     </div>
 
 </div>

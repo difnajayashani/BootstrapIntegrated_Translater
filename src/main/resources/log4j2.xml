@@ -36,7 +36,7 @@
     </Appenders>
 
     <Loggers>
-
+fdsdfds
 
         <Root level="all">
             <AppenderRef ref="STDOUT" level="trace"/>
