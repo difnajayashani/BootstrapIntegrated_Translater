@@ -24,7 +24,7 @@
     <!--javascript for duplicate values -->
     <script type="text/javascript" src="js/ajaxrequest.js"></script>
 
-    <script type="text/javascript">
+ <%--   <script type="text/javascript">
 
         function checkUniq(field, value)
         {
@@ -34,25 +34,62 @@
             req.loadXMLDoc("AddUserServlet", params);
         }
 
-    </script>
+    </script>--%>
 
     <!--javascript to check two passwords are equal -->
     <script type="text/javascript">
 
-        function thesame(value1, value2, description)
+        function checkForm(form)
         {
-            if (((value1 != null) ||
-                    (value1 != "")) &&
-                    value2 != "" &&
-                    value1 != value2)
-            {
-                alert("The " + description + " must be identical.");
-                return (false);
+
+            re = /^\w+$/;
+            if(!re.test(form.username.value)) {
+                alert("Error: Username must contain only letters, numbers and underscores!");
+                form.username.focus();
+                return false;
             }
-            return (true);
+
+            if(form.password.value != "" && form.password.value == form.confirm-password.value) {
+                if(form.password.value.length < 6) {
+                    alert("Error: Password must contain at least six characters!");
+                    form.password.focus();
+                    return false;
+                }
+                if(form.password.value == form.username.value) {
+                    alert("Error: Password must be different from Username!");
+                    form.password.focus();
+                    return false;
+                }
+                re = /[0-9]/;
+                if(!re.test(form.password.value)) {
+                    alert("Error: password must contain at least one number (0-9)!");
+                    form.password.focus();
+                    return false;
+                }
+                re = /[a-z]/;
+                if(!re.test(form.password.value)) {
+                    alert("Error: password must contain at least one lowercase letter (a-z)!");
+                    form.password.focus();
+                    return false;
+                }
+                re = /[A-Z]/;
+                if(!re.test(form.password.value)) {
+                    alert("Error: password must contain at least one uppercase letter (A-Z)!");
+                    form.password.focus();
+                    return false;
+                }
+            } else {
+                alert("Error: Please check that you've entered and confirmed your password!");
+                form.password.focus();
+                return false;
+            }
+
+            alert("You entered a valid password: " + form.password.value);
+            return true;
         }
-        // end hiding -->
+
     </script>
+
 
 </head>
 
@@ -83,7 +120,7 @@
 
             <div class="form-bottom">
 
-                <form role="form" action="AddUserServlet" method="post" class="registration-form">
+                <form role="form" id="adduser_form" action="AddUserServlet" method="post" class="registration-form" onsubmit="return checkForm(this);">
 
 
                     <div class="form-group">
@@ -132,7 +169,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-6">Email(eg:xxx@gmail.com)*</label>
                         <div class="col-sm-6">
-                            <input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3})|(aero|coop|info|museum|name))$" required>
+                            <input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3}))$" required>
                         </div>
                     </div>
 
@@ -141,7 +178,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-6">Mobile (94xxxxxxxxx)*</label>
                         <div class="col-sm-6">
-                            <input type="text" name="form-mobile" placeholder="94xxxxxxxxx" class="form-mobile form-control" id="form-mobile" pattern="^\d{11}$" required>
+                            <input type="text" name="form-mobile" placeholder="94xxxxxxxxx" class="form-mobile form-control" id="form-mobile" pattern="^\(?(\+94)\)?([0-9]{9})$"  required>
                         </div>
                     </div>
 

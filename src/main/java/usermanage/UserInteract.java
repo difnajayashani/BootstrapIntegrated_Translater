@@ -41,7 +41,7 @@ public class UserInteract {
 
 
 
-            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`e_mail`,`mobile`)" +" VALUES (\"" + a + "\",\"" + b + "\", \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%Y-%m-%d'),\"" + g  + "\",\"" +h + "\" ,\"" +i + "\")";
+            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`e_mail`,`mobile`)" +" VALUES (\"" + a + "\",\"" + b + "\", \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\",\"" +h + "\" ,\"" +i + "\")";
 
             if(connection != null) {
                 LOG.debug("Connection not null");
@@ -58,10 +58,7 @@ public class UserInteract {
                 LOG.error("Connection NULL");
 
 
-        } catch (PropertyVetoException e) {
-            LOG.error("Got an exception! : {}", e.getMessage());
-
-        }finally {
+        } finally {
             if (stmt != null) {
                 stmt.close();
             }

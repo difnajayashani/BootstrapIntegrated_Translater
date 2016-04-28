@@ -14,14 +14,24 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class DatabaseUtility {
 
-    public  static ComboPooledDataSource getDataSource() throws PropertyVetoException {
+    public  static ComboPooledDataSource getDataSource() {
 
         ComboPooledDataSource cpds = new ComboPooledDataSource();
 
-        cpds.setDriverClass("com.mysql.jdbc.Driver"); //loads the jdbc driver
-        cpds.setJdbcUrl("jdbc:mysql://localhost/login_db");
-        cpds.setUser("root");
-        cpds.setPassword("root");
+        try {
+            cpds.setDriverClass("com.mysql.jdbc.Driver"); //loads the jdbc driver
+            cpds.setJdbcUrl("jdbc:mysql://localhost/login_db");
+            cpds.setUser(" ");
+            cpds.setPassword(" ");
+
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }finally{
+            if(cpds!= null){
+                cpds.close();
+            }
+
+        }
 
 
 /*set the maximum, minimum of the Pool size and the connection increments
