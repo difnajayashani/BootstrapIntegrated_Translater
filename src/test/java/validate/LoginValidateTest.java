@@ -1,44 +1,64 @@
 package validate;
 
-import database.DBConnectionManager;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.*;
-
 import org.testng.Assert;
-import property.PropertyRead;
 
+import property.PropertyReader;
+
+import javax.servlet.http.HttpServlet;
+import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Map;
+
 
 import static org.testng.Assert.fail;
 
 /**test class to test the user authentication  */
-public class LoginValidateTest {
+public class LoginValidateTest extends HttpServlet {
 
 
     /**create the logger object for logging */
     private static final Logger LOG = LogManager.getLogger(LoginValidateTest.class);
 
-    DBConnectionManager dbManager;
-    Connection conn =null;
+    ComboPooledDataSource cpds;
+
+    /** define the connection variable**/
+    Connection conn;
 
     /**  run only once before all tests in this suite have run.*/
     @BeforeSuite
     public void connectDatatbase() {
 
 
-        /** create a hashmap object and call the getProperties method from App Class*/
-        Map<Integer, String> databaseConnect = PropertyRead.getProperties();
 
-        /**take each element of the hash map to variables by their keyvalues */
-        String un= databaseConnect.get(1);
-        String pw= databaseConnect.get(2);
-        String url= databaseConnect.get(3);
 
-        dbManager = new DBConnectionManager(url,un,pw);
+
+        LOG.info("load the properties like database url,password and username");
+        PropertyReader properties=new PropertyReader();
+
+
+        try {
+            cpds=new ComboPooledDataSource();
+            cpds.setDriverClass(properties.getproperty("database.driver","system.properties"));
+            cpds.setJdbcUrl(properties.getproperty("database.url", "system.properties"));
+            cpds.setUser(properties.getproperty("database.user", "system.properties"));
+            cpds.setPassword(properties.getproperty("database.pw", "system.properties"));
+
+            LOG.info("Database Connection created");
+
+            //Setting pooling configurations
+            cpds.setMinPoolSize(5);
+            cpds.setAcquireIncrement(5);
+            cpds.setMaxPoolSize(20);
+
+        } catch (PropertyVetoException e) {
+            LOG.error("Exception related to making database connection pool");
+        }
 
     }
 
@@ -46,10 +66,12 @@ public class LoginValidateTest {
     @BeforeClass
     public void insertUser() throws SQLException {
 
+
         PreparedStatement statement1 = null;
-        String insertQuery ="INSERT INTO user_data (`user_name`, `password`, `age`)" +" VALUES ('right', MD5('right'), 28)";
+        String insertQuery ="INSERT INTO user_data (`user_name`, `password`)" +" VALUES ('right', MD5('right'))";
+
         try {
-            conn = dbManager.getConnection();
+            conn = cpds.getConnection();
             // create a Statement from the connection
 
             statement1=conn.prepareStatement(insertQuery);
@@ -67,6 +89,10 @@ public class LoginValidateTest {
             if(statement1 != null) {
                 statement1.close();
             }
+            if(conn != null){
+                conn.close();
+
+            }
 
         }
     }
@@ -77,7 +103,7 @@ public class LoginValidateTest {
 
         boolean res= false;
         try {
-            res = LoginValidate.validate("right", "right");
+            res = LoginValidate.validate("right", "right",conn);
         } catch (Exception e) {
             fail();
         }
@@ -93,7 +119,7 @@ public class LoginValidateTest {
 
         boolean res= false;
         try {
-            res = LoginValidate.validate("right2", "right2");
+            res = LoginValidate.validate("right2", "right2",conn);
         } catch (Exception e) {
             LOG.error("Exception occured");
             fail();
@@ -110,7 +136,7 @@ public class LoginValidateTest {
 
         boolean res= false;
         try {
-            res = LoginValidate.validate("right2", "right");
+            res = LoginValidate.validate("right2", "right",conn);
         } catch (Exception e) {
             LOG.error("Exception occured");
             fail();
@@ -127,7 +153,7 @@ public class LoginValidateTest {
 
         boolean res= false;
         try {
-            res = LoginValidate.validate(" ", " ");
+            res = LoginValidate.validate(" ", " ",conn);
         } catch (Exception e) {
             LOG.error("Exception occured");
             fail();
@@ -143,7 +169,7 @@ public class LoginValidateTest {
 
         boolean res= false;
         try {
-            res = LoginValidate.validate(" ", "right ");
+            res = LoginValidate.validate(" ", "right ",conn);
         } catch (Exception e) {
             LOG.error("Exception occured");
             fail();
@@ -159,7 +185,7 @@ public class LoginValidateTest {
 
         boolean res= false;
         try {
-            res = LoginValidate.validate("right ", " ");
+            res = LoginValidate.validate("right ", " ",conn);
         } catch (Exception e) {
             LOG.error("Exception occured");
             fail();
@@ -174,7 +200,7 @@ public class LoginValidateTest {
         PreparedStatement statement2 = null;
         String deleteQuery ="DELETE  FROM user_data" + " WHERE  user_name = 'right'";
         try {
-            conn = dbManager.getConnection();
+            conn = cpds.getConnection();
 
             statement2=conn.prepareStatement(deleteQuery);
 
@@ -191,6 +217,9 @@ public class LoginValidateTest {
             if(statement2 != null){
                 statement2.close();
             }
+            if(conn != null){
+                conn.close();
+            }
 
         }
 
@@ -200,7 +229,11 @@ public class LoginValidateTest {
     /** run only once after all tests in this suite have run.*/
     @AfterSuite
     public void ConnectionClose(){
-        dbManager.closeConnection();
+        try {
+            cpds.getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         LOG.info("After Suite");
 
     }

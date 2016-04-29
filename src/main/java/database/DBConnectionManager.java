@@ -1,3 +1,4 @@
+/*
 package database;
 
 
@@ -10,16 +11,22 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
 
-/** class to make the connection with the database*/
+*/
+/** class to make the connection with the database*//*
+
 public class DBConnectionManager {
 
 
-    /**create the logger object for logging */
+    */
+/**create the logger object for logging *//*
+
     private static final Logger LOG = LogManager.getLogger(DBConnectionManager.class);
 
     public static Connection con;
 
-    /** create a hashmap object and call the getProperties method from App Class*/
+    */
+/** create a hashmap object and call the getProperties method from App Class*//*
+
     Map<Integer, String> driver = PropertyRead.getProperties();
 
     //constructor
@@ -40,14 +47,18 @@ public class DBConnectionManager {
 
     }
 
-    /** method to return the database connection*/
+    */
+/** method to return the database connection*//*
+
     public static Connection getConnection() {
 
         LOG.info("return Database connection");
         return con;
     }
 
-    /**method to close the connection */
+    */
+/**method to close the connection *//*
+
     public void closeConnection() {
         //close DB connection here
 
@@ -62,3 +73,4 @@ public class DBConnectionManager {
     }
 
 }
+*/

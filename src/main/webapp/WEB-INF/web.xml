@@ -39,6 +39,13 @@
 
   </servlet>
 
+  <servlet>
+    <servlet-name>servlet5</servlet-name>
+    <servlet-class>servelet.CheckAvailability</servlet-class>
+    <load-on-startup>5</load-on-startup>
+
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>servlet1</servlet-name>
     <url-pattern>/MyServlet</url-pattern>
@@ -60,11 +67,10 @@
     <url-pattern>/AddUserServlet</url-pattern>
   </servlet-mapping>
 
-
-
-
-
-
+  <servlet-mapping>
+    <servlet-name>servlet5</servlet-name>
+    <url-pattern>/CheckAvailability</url-pattern>
+  </servlet-mapping>
 
 
 </web-app>

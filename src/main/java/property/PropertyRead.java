@@ -1,3 +1,4 @@
+/*
 package property;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,16 +10,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-/** this class will read the system.properties file to obtain any value of a property*/
+*/
+/** this class will read the system.properties file to obtain any value of a property*//*
+
 public class PropertyRead {
 
 
-    /**create the logger object for logging */
+    */
+/**create the logger object for logging *//*
+
     private static final Logger LOG = LogManager.getLogger(PropertyRead.class);
 
     public static Map<Integer, String> result = null;
 
-    /**method returns a hashmap containing the property values of the application*/
+    */
+/**method returns a hashmap containing the property values of the application*//*
+
     public static Map<Integer,String> getProperties() {
 
         Properties prop = new Properties();
@@ -29,7 +36,9 @@ public class PropertyRead {
 
             String filename = "system.properties";
 
-            /**read the property file and put it into a Input Stream */
+            */
+/**read the property file and put it into a Input Stream *//*
+
             input = PropertyRead.class.getClassLoader().getResourceAsStream(filename);
             if (input == null) {
                 LOG.error("Sorry, unable to find : {} " , filename);
@@ -50,7 +59,9 @@ public class PropertyRead {
 
 
 
-            /** create a hash map and put each loaded property with a unique key value*/
+            */
+/** create a hash map and put each loaded property with a unique key value*//*
+
             result = new HashMap<Integer, String>();
 
             result.put(1, x);
@@ -80,7 +91,9 @@ public class PropertyRead {
             }
         }
 
-        /** return the hash map containing the property values*/
+        */
+/** return the hash map containing the property values*//*
+
         return result;
 
     }
@@ -88,3 +101,4 @@ public class PropertyRead {
 
 
 }
+*/

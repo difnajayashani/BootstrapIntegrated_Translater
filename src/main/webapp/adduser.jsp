@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+
 <html>
 <head>
 
@@ -21,75 +21,95 @@
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="css/form-elements.css">
 
-    <!--javascript for duplicate values -->
-    <script type="text/javascript" src="js/ajaxrequest.js"></script>
 
- <%--   <script type="text/javascript">
 
-        function checkUniq(field, value)
-        {
-            var req = new AjaxRequest();
-            req.setMethod('POST');
-            var params = "table=user_data &field=" + encodeURIComponent(field) + "&value=" + encodeURIComponent(value);
-            req.loadXMLDoc("AddUserServlet", params);
-        }
-
-    </script>--%>
-
-    <!--javascript to check two passwords are equal -->
+<%----------------------------------------javascript functions---------------------------------------------------------------%>
     <script type="text/javascript">
 
-        function checkForm(form)
-        {
 
-            re = /^\w+$/;
-            if(!re.test(form.username.value)) {
-                alert("Error: Username must contain only letters, numbers and underscores!");
-                form.username.focus();
+        function validatePassword(fld) {
+            var error = "";
+            var illegalChars = /[\W_]/; // allow only letters and numbers
+
+            if (fld.value == "") {
+                fld.style.background = 'Yellow';
+                error = "You didn't enter a password.\n";
+                alert(error);
                 return false;
-            }
 
-            if(form.password.value != "" && form.password.value == form.confirm-password.value) {
-                if(form.password.value.length < 6) {
-                    alert("Error: Password must contain at least six characters!");
-                    form.password.focus();
-                    return false;
-                }
-                if(form.password.value == form.username.value) {
-                    alert("Error: Password must be different from Username!");
-                    form.password.focus();
-                    return false;
-                }
-                re = /[0-9]/;
-                if(!re.test(form.password.value)) {
-                    alert("Error: password must contain at least one number (0-9)!");
-                    form.password.focus();
-                    return false;
-                }
-                re = /[a-z]/;
-                if(!re.test(form.password.value)) {
-                    alert("Error: password must contain at least one lowercase letter (a-z)!");
-                    form.password.focus();
-                    return false;
-                }
-                re = /[A-Z]/;
-                if(!re.test(form.password.value)) {
-                    alert("Error: password must contain at least one uppercase letter (A-Z)!");
-                    form.password.focus();
-                    return false;
-                }
+            } else if ((fld.value.length < 7) || (fld.value.length > 15)) {
+                error = "The password is the wrong length. \n";
+                fld.style.background = 'Yellow';
+                alert(error);
+                return false;
+
+            }  else if ( (fld.value.search(/[a-zA-Z]+/)==-1) || (fld.value.search(/[0-9]+/)==-1) ) {
+                error = "The password must contain at least one numeral.\n";
+                fld.style.background = 'Yellow';
+                alert(error);
+                return false;
+
             } else {
-                alert("Error: Please check that you've entered and confirmed your password!");
-                form.password.focus();
-                return false;
+                fld.style.background = 'White';
             }
-
-            alert("You entered a valid password: " + form.password.value);
             return true;
         }
 
-    </script>
 
+    <!--javascript to check two passwords are equal -->
+        function passwordsEqual(fld1,fld2) {
+            var error2 = "";
+
+            if (fld1.value == "") {
+                fld1.style.background = 'Yellow';
+                error2 = "You have to confirm the password.\n";
+                alert(error2);
+                return false;
+
+            }
+
+            else if ((fld1.value) != (fld2.value)) {
+               error = "Two passwords have to be Equal. \n";
+               fld1.style.background = 'Yellow';
+               alert(error);
+               return false;
+
+           }  else {
+                fld1.style.background = 'White';
+            }
+            return true;
+        }
+
+
+        $(document).ready(function(){
+            $(".user_name").change(function(){
+                var uname = $(this).val();
+                if(uname.length >= 3){
+                    $(".status").html("<font color=gray> Checking availability...</font>");
+                    $.ajax({
+                        type: "POST",
+                        url: "src/main/java/servelet/CheckAvailability.java",
+                        data: "user_name="+ uname,
+                        success: function(msg){
+
+                            $(".status").ajaxComplete(function(event, request, settings){
+
+                                $(".status").html(msg);
+
+                            });
+                        }
+                    });
+                }
+                else{
+
+                    $(".status").html("<font color=red>Username should be <b>3</b> character long.</font>");
+                }
+
+            });
+        });
+
+    </script>
+    <!--------------------------------------------------------------------------------------------------------------------------------------->
 
 </head>
 
@@ -120,7 +140,7 @@
 
             <div class="form-bottom">
 
-                <form role="form" id="adduser_form" action="AddUserServlet" method="post" class="registration-form" onsubmit="return checkForm(this);">
+                <form role="form" id="adduser_form" action="AddUserServlet" method="post" class="registration-form" >
 
 
                     <div class="form-group">
@@ -187,19 +207,24 @@
                     <div class="form-group ">
                         <label class="control-label col-sm-6" >Username *</label>
                         <div class="col-sm-6">
-                            <input type="text" name="username" placeholder="Username..." class="form-username form-control" onchange=" checkUniq(this.name, this.value);" id="form-username" required/>
+                            <input type="text" name="username" placeholder="Username..." class="user_name form-control" id="form-username" required/>
+
 
                         </div>
 
                     </div>
 
 
-                    <div class="form-group"></div>
+                    <div class="form-group">
+                        <center>
+                            <span class="status"></span>
+                        </center>
+                    </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-6" >Password *</label>
                         <div class="col-sm-6">
-                            <input type="password" name="password" placeholder="Password..." class="form-password form-control"  id="form-password" required>
+                            <input type="password" name="password" placeholder="Password..." class="form-password form-control"  id="form-password" onchange=" validatePassword(password)" required></span>
                         </div>
 
                     </div>
@@ -209,7 +234,7 @@
                     <div class="form-group">
                         <label  class="control-label col-sm-6" >Confirm pw *</label>
                         <div class="col-sm-6">
-                            <input type="password" name="confirm-password" placeholder="Confirm Password..." class="form-password form-control" onchange="thesame(confirm-password.value,password.value,'passwords');" id="form-password-confirm" required>
+                            <input type="password" name="cnpassword" placeholder="Confirm Password..." class="form-password form-control" id="form-password-confirm" onchange=" passwordsEqual(cnpassword,password)" required>
                         </div>
 
                     </div>

@@ -1,6 +1,7 @@
 package servelet;
 
 
+import c3p0.sample.DatabaseUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import translater.YandexIntegrater;
@@ -11,13 +12,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**sevelet class to take the login form inputs and validate the user*/
+/**
+ * sevelet class to take the login form inputs and validate the user
+ * */
 public class MyServlet extends HttpServlet {
 
     /**create the logger object for logging */
@@ -25,6 +26,13 @@ public class MyServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * @param request servlet instance we create to transport data to the servlet
+     * @param response servlet instance we use to obtain data from the servlet
+     * @throws ServletException
+     * @throws IOException
+     *
+     * **/
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,15 +47,20 @@ public class MyServlet extends HttpServlet {
         String n = request.getParameter("username");
         String p = request.getParameter("password");
 
-        //**set the logged in user's name *//*
+        /**set the logged in user's name */
         request.setAttribute("name", n);
         LOG.info("Attribute name set");
+
+
+        /** connect to the database pool**/
+        DatabaseUtility dbPool=(DatabaseUtility)getServletContext().getAttribute("DBManager");
+
 
         /**validate the login by calling validate function */
         boolean valid = false;
         try {
             LOG.info("Calling the method to validate the user");
-            valid = LoginValidate.validate(n, p);
+            valid = LoginValidate.validate(n, p, dbPool.getConnection());
 
 
         } catch (Exception e) {

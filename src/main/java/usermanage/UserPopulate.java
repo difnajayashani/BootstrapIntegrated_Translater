@@ -33,8 +33,6 @@ public class UserPopulate {
 
         try {
 
-            ComboPooledDataSource dataSource = DatabaseUtility.getDataSource();
-            con = dataSource.getConnection();
 
             st = con.createStatement();
             rs = st.executeQuery("SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user_data ORDER BY ID ASC;");

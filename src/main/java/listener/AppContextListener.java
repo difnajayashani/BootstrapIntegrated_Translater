@@ -1,42 +1,48 @@
 package listener;
 
-import property.PropertyRead;
+
+import c3p0.sample.DatabaseUtility;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
-import database.DBConnectionManager;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.Map;
+import java.sql.SQLException;
 
-/** listener class*/
+
+/**
+ * listener class to initiate the  database connection at the start of the web application
+ * */
 public class AppContextListener implements ServletContextListener {
 
-    /** initiates a database connection*/
+    /** define the logger for this class**/
+    private static final Logger LOGGER = LogManager.getLogger(AppContextListener.class);
+    DatabaseUtility db = null;
+
+
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
-        /** create a hashmap object and call the getProperties method from App Class*/
-        Map<Integer, String> main = PropertyRead.getProperties();
 
-        /**take each element of the hash map to variables by their keyvalues */
-        String u= main.get(1);
-        String p= main.get(2);
-        String url= main.get(3);
-
-
+        LOGGER.info("Servelet Context Initialized");
         ServletContext ctx = servletContextEvent.getServletContext();
 
+            db=new DatabaseUtility();
+            ctx.setAttribute("DBManager",db);
+            LOGGER.trace("Database Connection pool created");
 
-        //create database connection from init parameters and set it to context
-        DBConnectionManager dbManager = new DBConnectionManager(url, u, p);
-        ctx.setAttribute("DBManager", dbManager);
+
 
     }
 
+    /** Destroy the connection pool at the end**/
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        ServletContext ctx = servletContextEvent.getServletContext();
-        DBConnectionManager dbManager = (DBConnectionManager) ctx.getAttribute("DBManager");
-        dbManager.closeConnection();
+        try {
+            db.getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }

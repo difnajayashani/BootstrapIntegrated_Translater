@@ -22,26 +22,18 @@ public class UserInteract {
 
     private static PreparedStatement stmt = null;
 
-    private static Connection connection= null;
-
 
     /** The method will enter the user to the database table after validating **/
 
-    public static boolean insertUser(String a,String b,String c,String d,String f,String g,String h,String i)throws Exception{
+    public static boolean insertUser(Connection connection,String a,String b,String c,String d,String f,String g,String h,String i)throws Exception{
 
         LOG.info("Inside the userInsert method");
         LOG.info("value of i1 : {}",i);
-       /* int i2 = Integer.parseInt(i);
 
-        LOG.info("value of i2 : {}",i2);*/
+
         try {
-            LOG.info("Calling the database connection object");
-            ComboPooledDataSource dataSource = DatabaseUtility.getDataSource();
-            connection = dataSource.getConnection();
 
-
-
-            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`e_mail`,`mobile`)" +" VALUES (\"" + a + "\",\"" + b + "\", \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\",\"" +h + "\" ,\"" +i + "\")";
+            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`e_mail`,`mobile`)" +" VALUES (\"" + a + "\",MD5(\"" + b + "\"), \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\",\"" +h + "\" ,\"" +i + "\")";
 
             if(connection != null) {
                 LOG.debug("Connection not null");
@@ -80,7 +72,7 @@ public class UserInteract {
         String deleteQuery ="DELETE  FROM user_data" + " WHERE  user_name = \"" + userExist+ "\" ";
 
         try {
-            stmt=connection.prepareStatement(deleteQuery);
+            //stmt=connection.prepareStatement(deleteQuery);
 
             //execute the statement
             stmt.executeUpdate();
@@ -89,8 +81,6 @@ public class UserInteract {
         }finally {
             if (stmt != null) {
                 stmt.close();
-            } if (connection != null) {
-                connection.close();
             }
 
         }

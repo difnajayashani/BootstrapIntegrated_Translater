@@ -2,53 +2,67 @@
 package c3p0.sample;
 
 
-
 import java.beans.PropertyVetoException;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import property.PropertyReader;
 
+
+/**
+ *this class create the database connection using Servelet Context Listener
+ * **/
 public class DatabaseUtility {
 
-    public  static ComboPooledDataSource getDataSource() {
+    /** define the logger for this class**/
+    private static final Logger LOGGER = LogManager.getLogger(DatabaseUtility.class);
 
-        ComboPooledDataSource cpds = new ComboPooledDataSource();
+    ComboPooledDataSource cpds;
+
+    /** define the connection variable**/
+    public static Connection conn;
+
+    public  DatabaseUtility(){
+
+        LOGGER.info("load the properties like database url,password and username");
+        PropertyReader properties=new PropertyReader();
+
 
         try {
-            cpds.setDriverClass("com.mysql.jdbc.Driver"); //loads the jdbc driver
-            cpds.setJdbcUrl("jdbc:mysql://localhost/login_db");
-            cpds.setUser(" ");
-            cpds.setPassword(" ");
+            cpds=new ComboPooledDataSource();
+            cpds.setDriverClass(properties.getproperty("database.driver","system.properties"));
+            cpds.setJdbcUrl(properties.getproperty("database.url", "system.properties"));
+            cpds.setUser(properties.getproperty("database.user", "system.properties"));
+            cpds.setPassword(properties.getproperty("database.pw", "system.properties"));
+
+            LOGGER.info("Database Connection created");
+
+            //Setting pooling configurations
+            cpds.setMinPoolSize(5);
+            cpds.setAcquireIncrement(5);
+            cpds.setMaxPoolSize(20);
 
         } catch (PropertyVetoException e) {
-            e.printStackTrace();
-        }finally{
-            if(cpds!= null){
-                cpds.close();
-            }
-
+           LOGGER.error("Exception related to making database connection pool");
         }
 
 
-/*set the maximum, minimum of the Pool size and the connection increments
-         * this is optional */
+    }
 
-   /*     cpds.setMinPoolSize(5);
-        cpds.setAcquireIncrement(5);
-        cpds.setMaxPoolSize(20);
-        cpds.setMaxStatements(180);*/
+    /** to return the created connection**/
+    public Connection getConnection() throws SQLException {
 
-
-        return cpds;
-
+        LOGGER.info("return the database connection ");
+        return cpds.getConnection();
     }
 
 
-    public static void main(String[] args) throws SQLException {
+
+
+    /*public static void main(String[] args) throws SQLException {
 
         Connection connection = null;
         PreparedStatement pstmt = null;
@@ -90,6 +104,6 @@ public class DatabaseUtility {
 
         }
 
-    }
+    }*/
 }
 

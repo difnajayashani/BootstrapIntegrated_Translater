@@ -9,7 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import property.PropertyRead;
+import property.PropertyReader;
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Map;
+
 
 
 public class YandexIntegrater {
@@ -27,10 +28,10 @@ public class YandexIntegrater {
     private static final Logger LOG = LogManager.getLogger(YandexIntegrater.class);
 
     /** create a hashmap object and call the getProperties method from App Class*/
-    Map<Integer, String> urls = PropertyRead.getProperties();
+    PropertyReader properties=new PropertyReader();
 
     /** URL to send the request to the API to obtain the language list*/
-     final String POSTURL = urls.get(4);
+     final String POSTURL = properties.getproperty("languagelist.url","system.properties");
 
 
 
@@ -110,17 +111,19 @@ public class YandexIntegrater {
     }
 
     /** function to translate a input string to the given language
-     * o_lan => language of the original string to be translated
-     * t_lan => language for the string to be translated
-     * text_input => input string
+     * @o_lan => language of the original string to be translated
+     * @t_lan => language for the string to be translated
+     * @text_input => input string
      * */
 
     public  String translateText(String o_lan, String t_lan, String text_input) throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
 
 
         String output;
+        String url=properties.getproperty("translate.url","system.properties");
+
         /** URL sent to the API to get the string translated*/
-       final String TRANSURL=urls.get(5)+o_lan+"-"+t_lan+"&text="+text_input;
+       final String TRANSURL=url+o_lan+"-"+t_lan+"&text="+text_input;
 
         /**send the request to the server thorough YandexIntegrater*/
         org.apache.http.client.HttpClient httpClientTranslate = new DefaultHttpClient();

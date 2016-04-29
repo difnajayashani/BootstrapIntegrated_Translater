@@ -1,12 +1,8 @@
 package validate;
 
 
-import c3p0.sample.DatabaseUtility;
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,19 +21,16 @@ public class LoginValidate {
      */
 
 
-    public static boolean validate(String name, String pw) throws Exception {
+    public static boolean validate(String name, String pw, Connection connection) throws Exception {
 
         LOG.info("Inside the user validation against the database method");
         Statement stmt = null;
         ResultSet rs = null;
-        Connection connection= null;
 
 
         try {
             LOG.info("Calling the database connection object");
-           // Connection con = DBConnectionManager.getConnection();
-            ComboPooledDataSource dataSource = DatabaseUtility.getDataSource();
-            connection = dataSource.getConnection();
+
 
             if(connection != null) {
                 LOG.debug("Connection not null");

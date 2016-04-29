@@ -1,6 +1,7 @@
 package servelet;
 
 
+import c3p0.sample.DatabaseUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import usermanage.UserInteract;
@@ -12,10 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.*;
-
 import java.io.IOException;
-
-import static usermanage.UserInteract.insertUser;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class AddUserServlet  extends HttpServlet {
@@ -24,8 +24,17 @@ public class AddUserServlet  extends HttpServlet {
     /**create the logger object for logging */
     private static final Logger LOG = LogManager.getLogger(AddUserServlet.class);
 
+
+    /**
+     * @param request servlet instance we create to transport data to the servlet
+     * @param response servlet instance we use to obtain data from the servlet
+     * @throws ServletException
+     * @throws IOException
+     *
+     * **/
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
 
 
         LOG.info("Obtain attribute name set from user add form");
@@ -39,9 +48,11 @@ public class AddUserServlet  extends HttpServlet {
         String u_name = request.getParameter("username");
         String pw = request.getParameter("password");
 
+
         LOG.info("Date read from form! : {}", date);
-       /* LOG.info("Calling date Validation method");
-        String date2=UserValidate.isValidDate(date);*/
+
+        /** connect to the database pool**/
+        DatabaseUtility dbPool=(DatabaseUtility)getServletContext().getAttribute("DBManager");
 
         try {
             LOG.info("Calling dataValidation method");
@@ -49,7 +60,7 @@ public class AddUserServlet  extends HttpServlet {
 
 
                 LOG.info("Calling userInsert method");
-                boolean success = UserInteract.insertUser(u_name, pw, f_name, l_name, date, country, email, mobile);
+                boolean success = UserInteract.insertUser(dbPool.getConnection(),u_name, pw, f_name, l_name, date, country, email, mobile);
 
                 if (success) {
                     LOG.info("The user is inserted successfully");
@@ -71,8 +82,8 @@ public class AddUserServlet  extends HttpServlet {
                 JOptionPane.showMessageDialog(new JFrame()," Successfully added a user", "Congrates !",
                         JOptionPane.ERROR_MESSAGE);
 
-                RequestDispatcher rd = request.getRequestDispatcher("adduser.jsp");
-                rd.include(request, response);
+            /** reloadd the same page **/
+            request.getRequestDispatcher("navbar.jsp").forward(request, response);;
 
         } catch (Exception e) {
             LOG.error("Got an exception! : {}", e.getMessage());
