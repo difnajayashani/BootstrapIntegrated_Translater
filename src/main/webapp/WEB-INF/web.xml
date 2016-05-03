@@ -46,6 +46,13 @@
 
   </servlet>
 
+  <servlet>
+    <servlet-name>servlet6</servlet-name>
+    <servlet-class>servelet.SearchUserServlet</servlet-class>
+    <load-on-startup>6</load-on-startup>
+
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>servlet1</servlet-name>
     <url-pattern>/MyServlet</url-pattern>
@@ -70,6 +77,11 @@
   <servlet-mapping>
     <servlet-name>servlet5</servlet-name>
     <url-pattern>/CheckAvailability</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>servlet6</servlet-name>
+    <url-pattern>/SearchUserServlet</url-pattern>
   </servlet-mapping>
 
 

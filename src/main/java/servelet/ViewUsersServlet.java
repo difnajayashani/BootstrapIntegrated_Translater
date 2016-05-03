@@ -1,4 +1,4 @@
-package servelet;
+/*package servelet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
+*//**
  * servlet which provides the user list to the view
- */
+ *//*
 public class ViewUsersServlet extends HttpServlet {
 
     private static final Logger LOG = LogManager.getLogger(YandexIntegrater.class);
@@ -41,4 +41,4 @@ public class ViewUsersServlet extends HttpServlet {
 
 
     }
-}
+}*/

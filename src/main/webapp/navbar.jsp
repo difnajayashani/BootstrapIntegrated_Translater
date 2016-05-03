@@ -27,6 +27,11 @@
 
 
 
+
+
+
+
+
 </head>
 <body>
 
@@ -87,6 +92,8 @@
 
           <div id="dropdown1" class="tab-pane fade">
             <h3><strong>Add a New User</strong></h3>
+
+
               <jsp:include page="adduser.jsp">
                   <jsp:param name="title" value="Add User"/>
               </jsp:include>
@@ -94,8 +101,10 @@
           </div>
 
           <div id="dropdown2" class="tab-pane fade">
-            <h3><strong>View All Users</strong></h3>
-              <jsp:include page="view_users.jsp">
+            <h3><strong>View Users</strong></h3>
+
+
+              <jsp:include page="viewuser.jsp">
                   <jsp:param name="title" value="Add User"/>
               </jsp:include>
           </div>

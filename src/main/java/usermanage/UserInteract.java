@@ -25,7 +25,7 @@ public class UserInteract {
 
     /** The method will enter the user to the database table after validating **/
 
-    public static boolean insertUser(Connection connection,String a,String b,String c,String d,String f,String g,String h,String i)throws Exception{
+    public static boolean insertUser(Connection connection,String a,String b,String c,String d,String f,String g,String h,String i,String j)throws Exception{
 
         LOG.info("Inside the userInsert method");
         LOG.info("value of i1 : {}",i);
@@ -33,7 +33,7 @@ public class UserInteract {
 
         try {
 
-            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`e_mail`,`mobile`)" +" VALUES (\"" + a + "\",MD5(\"" + b + "\"), \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\",\"" +h + "\" ,\"" +i + "\")";
+            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`city_id` ,`e_mail`,`mobile`)" +" VALUES (\"" + a + "\",MD5(\"" + b + "\"), \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\",\"" +h + "\" ,\"" +i + "\",\""+ j+ "\")";
 
             if(connection != null) {
                 LOG.debug("Connection not null");
@@ -65,28 +65,33 @@ public class UserInteract {
 
     /** The method will delete the user from the database table after confirming it exists**/
 
-    public static boolean deletetUser(String userExist) throws Exception{
+    public static void deletetUser(Connection con,String userExist) throws Exception{
 
         //search in database if the user exists
 
-        String deleteQuery ="DELETE  FROM user_data" + " WHERE  user_name = \"" + userExist+ "\" ";
+        String deleteQuery ="DELETE  FROM user_data  WHERE  user_name = \"" + userExist+ "\" ";
 
         try {
-            //stmt=connection.prepareStatement(deleteQuery);
+            stmt=con.prepareStatement(deleteQuery);
 
             //execute the statement
-            stmt.executeUpdate();
+            stmt.execute();
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             if (stmt != null) {
                 stmt.close();
+            }if(con!= null){
+                con.close();
+
             }
 
         }
 
 
-     return true;
+
     }
 }
 

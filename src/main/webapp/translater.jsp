@@ -44,7 +44,7 @@
                                 <div class="col-sm-6">
 
                                 <%
-                                    out.println("<textarea name=\"original-text\" class=\"form-control\" rows=\"20\" cols=\"20\"  id=\"text_origi\" >");
+                                    out.println("<textarea name=\"original-text\" class=\"form-control\" rows=\"5\" cols=\"10\"  id=\"text_origi\" >");
                                     String s1= (String)request.getAttribute("original");
                                     if (s1 != null){
                                         out.println(s1);
@@ -56,7 +56,7 @@
 
                                 <div class="col-sm-6">
 
-                                    <textarea class="form-control"  name="translated-text" id="text_trans" rows="100" cols="20">
+                                    <textarea class="form-control"  name="translated-text" id="text_trans" rows="5" cols="10">
 
                                     <% String s2= (String)request.getAttribute("translated");
                                         if (s2 != null){

@@ -43,6 +43,7 @@ public class AddUserServlet  extends HttpServlet {
         String l_name = request.getParameter("form-last-name");
         String date = request.getParameter("date");
         String country = request.getParameter("country");
+        String city = request.getParameter("form-city");
         String email = request.getParameter("form-email");
         String mobile = request.getParameter("form-mobile");
         String u_name = request.getParameter("username");
@@ -60,7 +61,7 @@ public class AddUserServlet  extends HttpServlet {
 
 
                 LOG.info("Calling userInsert method");
-                boolean success = UserInteract.insertUser(dbPool.getConnection(),u_name, pw, f_name, l_name, date, country, email, mobile);
+                boolean success = UserInteract.insertUser(dbPool.getConnection(),u_name, pw, f_name, l_name, date, country,city, email, mobile);
 
                 if (success) {
                     LOG.info("The user is inserted successfully");

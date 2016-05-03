@@ -184,7 +184,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group"></div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-6">City*</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="form-city" placeholder="City..." class="form-city form-control" id="form-city"  required>
+                        </div>
+
+                    </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-6">Email(eg:xxx@gmail.com)*</label>
@@ -277,6 +283,12 @@
                     </div>
 
                 </form>
+
+
+
+
+
+
 
             </div>
         </div>
