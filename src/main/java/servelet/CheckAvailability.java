@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by hsenid on 4/29/16.
@@ -32,29 +29,34 @@ public class CheckAvailability extends HttpServlet {
 
         Connection connection=null;
         ResultSet rs=null;
+
         try {
 
-            String uname = request.getParameter("username");
+
+            String uname = request.getParameter("uname");
+            LOG.trace("obtained the parameter uname passed by ajax");
 
             /** connect to the database pool**/
             DatabaseUtility dbPool=(DatabaseUtility)getServletContext().getAttribute("DBManager");
            connection=dbPool.getConnection();
+            LOG.trace("created the connection");
 
+            Statement stmt = connection.createStatement();
 
-            PreparedStatement ps = connection.prepareStatement("select user_name from user_data where user_name=?");
-            ps.setString(1,uname);
-            rs = ps.executeQuery();
+            String query = "SELECT user_name FROM user_data where user_name =\"" + uname + "\" ; ";
+            rs = stmt.executeQuery(query);
+            LOG.trace("Query executed");
 
-            if (!rs.next()) {
-                out.println("<font color='green'><b>"+uname+"</b> is avaliable</font>");
+            if (rs != null) {
+                if (rs.next()) {
+                    out.println(1) ;
+                }
             }
-            else{
-                out.println("<font color='red'><b>"+uname+"</b> is already in use</font>");
-            }
-            out.println();
+
+            //out.println(rs.next());
 
         } catch (Exception ex) {
-            out.println("Error ->" + ex.getMessage());
+            LOG.error("exception");
         } finally {
             if(connection!=null){
                 try {

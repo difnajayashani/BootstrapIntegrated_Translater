@@ -10,27 +10,28 @@
 <script type="text/javascript" src="datepicker/daterangepicker.js"></script>
 
 
-<div class="bootstrap-iso form-group">
-  <label class="col-md-6 control-label requiredField" for="date">
-    Date of Birth *:
-
+  <label class="col-sm-4 control-label  requiredField" for="date2">
+    Date of Birth:
+    <span class="asteriskField">
+      *
+    </span>
   </label>
 
-  <div class="col-md-6">
-    <input class="form-control" id="date" name="date" type="text" required/>
+  <div class="col-sm-8">
+    <input class="form-control" id="date2" name="date2" type="text" required/>
   </div>
-</div>
+
 
 
 <script>
-$('#date').daterangepicker({
+  $('#date2').daterangepicker({
 
 
-"singleDatePicker": true,
-"showDropdowns": true,
-"startDate": "04/22/2016"
+    "singleDatePicker": true,
+    "showDropdowns": true,
+    "startDate": "04/22/2016"
 
-});
+  });
 
 </script>
 

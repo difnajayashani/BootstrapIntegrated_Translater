@@ -63,19 +63,65 @@ public class UserInteract {
     }
 
 
+    /**
+     *  The method will update the user from the database table*
+     *  */
+
+    public static boolean updateUser(Connection connection,String a,String b,String c,String d,String f,String g,String h,String i,String j)throws Exception{
+
+        LOG.info("Inside the userUpdate method");
+        LOG.info("value of i1 : {}",i);
+
+
+        try {
+
+            String insertQuery ="UPDATE user_data SET  password = \"" +b + "\",f_name =\"" +c + "\" ,l_name =\"" + d + "\",birth_date =STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),country = \"" + g+ "\" ,city_id = \"" +h+ "\" ,e_mail= \"" +i+ "\",mobile = \"" +j+ "\" WHERE user_name= \"" +a+ "\"";
+            if(connection != null) {
+                LOG.debug("Connection not null");
+
+
+                /** create a statement*/
+                stmt = connection.prepareStatement(insertQuery);
+                LOG.debug("Statement created");
+                // insert the data
+                stmt.executeUpdate();
+                LOG.debug("Queary executed");
+
+                return true;
+
+            }else
+                LOG.error("Connection NULL");
+
+
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return false;
+    }
+
+
+
+
     /** The method will delete the user from the database table after confirming it exists**/
 
-    public static void deletetUser(Connection con,String userExist) throws Exception{
+    public static int deletetUser(Connection con,String userExist) throws Exception{
 
         //search in database if the user exists
 
-        String deleteQuery ="DELETE  FROM user_data  WHERE  user_name = \"" + userExist+ "\" ";
+        String deleteQuery ="DELETE FROM user_data WHERE user_name=\"" + userExist+ "\";";
 
         try {
             stmt=con.prepareStatement(deleteQuery);
 
             //execute the statement
-            stmt.execute();
+
+            return stmt.executeUpdate();
 
 
         } catch (SQLException e) {
@@ -91,8 +137,36 @@ public class UserInteract {
         }
 
 
-
+       return 0;
     }
+
+
+/* public static void main(String args[]) throws SQLException {
+
+
+     DatabaseUtility dbPool = new DatabaseUtility();
+     Connection con = null;
+     try {
+         con = dbPool.getConnection();
+     } catch (SQLException e) {
+         e.printStackTrace();
+     }
+     try {
+
+         int test=UserInteract.deletetUser(con,"nayana");
+         System.out.print(test);
+
+     } catch (SQLException e) {
+         e.printStackTrace();
+     } catch (Exception e) {
+         e.printStackTrace();
+     }finally{
+         assert con != null;
+         con.close();
+     }
+
+
+ }*/
 }
 
 

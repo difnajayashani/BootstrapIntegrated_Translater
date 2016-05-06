@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +30,9 @@ public class DeleteUserServlet  extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String deleteID= request.getParameter("user-search-name");
+        String delUser= request.getParameter("val");
+
+        LOG.info("The requsted deleteing user",delUser);
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -45,14 +48,31 @@ public class DeleteUserServlet  extends HttpServlet {
             DatabaseUtility dbPool = (DatabaseUtility) getServletContext().getAttribute("DBManager");
             connection = dbPool.getConnection();
 
-            LOG.trace("method to poplulate the user_list is called");
-           UserInteract.deletetUser(connection,deleteID);
+            int delCon;
+
+            LOG.trace("method to delete the given user is called");
+           delCon=UserInteract.deletetUser(connection,delUser);
+
+            if(delCon==1){
+                LOG.info("User deleted successfully");
+                out.println(delCon);
+
+            }
 
 
         } catch (SQLException e) {
-            LOG.error("SQLException in searching user");
+            LOG.error("SQLException in deleting user");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Exception in deleting user");
+        }finally{
+            if(connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
 
 

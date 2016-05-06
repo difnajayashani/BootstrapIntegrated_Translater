@@ -84,26 +84,18 @@
         $(document).ready(function(){
             $(".user_name").change(function(){
                 var uname = $(this).val();
-                if(uname.length >= 3){
-                    $(".status").html("<font color=gray> Checking availability...</font>");
-                    $.ajax({
+                        $.ajax({
                         type: "POST",
-                        url: "src/main/java/servelet/CheckAvailability.java",
-                        data: "user_name="+ uname,
+                        url: "CheckAvailability",
+                        data: {"uname": uname},
                         success: function(msg){
-
-                            $(".status").ajaxComplete(function(event, request, settings){
-
-                                $(".status").html(msg);
-
-                            });
+                           if(msg == 1)
+                                alert("User name exists !... try another");
+                        },
+                        error:function(){
+                            alert("ajax failed" +uname);
                         }
                     });
-                }
-                else{
-
-                    $(".status").html("<font color=red>Username should be <b>3</b> character long.</font>");
-                }
 
             });
         });
@@ -213,7 +205,7 @@
                     <div class="form-group ">
                         <label class="control-label col-sm-6" >Username *</label>
                         <div class="col-sm-6">
-                            <input type="text" name="username" placeholder="Username..." class="user_name form-control" id="form-username" required/>
+                            <input type="text" name="username" placeholder="Username..." class="user_name form-control " id="form-username" required/>
 
 
                         </div>
@@ -250,7 +242,7 @@
 
                     <div class="form-group">
 
-                        <button type="submit" class="btn">Add User</button>
+                        <button type="submit" class="btn" id="addbtn">Add User</button>
 
                     </div>
 

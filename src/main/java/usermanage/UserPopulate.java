@@ -59,7 +59,7 @@ public class UserPopulate {
 
                 LOG.info("Size of loop is:", size);
 
-                a1.append("ID", rs.getString("ID"));
+                a1.append("id", rs.getString("ID"));
                 a1.append("user_name",rs.getString("user_name"));
                 a1.append("f_name",rs.getString("f_name"));
                 a1.append("l_name",rs.getString("l_name"));

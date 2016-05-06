@@ -50,6 +50,17 @@ public class AddUserServlet  extends HttpServlet {
         String pw = request.getParameter("password");
 
 
+
+        /**set the logged in user's name */
+        request.setAttribute("f_name", f_name);
+        request.setAttribute(" l_name",  l_name);
+        request.setAttribute("date", date);
+        request.setAttribute("country", country);
+        request.setAttribute("city", city);
+        request.setAttribute("email", email);
+        request.setAttribute("mobile", mobile);
+        request.setAttribute("u_name",u_name);
+        request.setAttribute("pw", pw);
         LOG.info("Date read from form! : {}", date);
 
         /** connect to the database pool**/
@@ -61,7 +72,8 @@ public class AddUserServlet  extends HttpServlet {
 
 
                 LOG.info("Calling userInsert method");
-                boolean success = UserInteract.insertUser(dbPool.getConnection(),u_name, pw, f_name, l_name, date, country,city, email, mobile);
+                boolean success = UserInteract.insertUser(dbPool.getConnection(),u_name, pw, f_name, l_name,
+                        date, country,city, email, mobile);
 
                 if (success) {
                     LOG.info("The user is inserted successfully");
@@ -81,7 +93,7 @@ public class AddUserServlet  extends HttpServlet {
                 // error pop up message for invalid user credentials
 */
                 JOptionPane.showMessageDialog(new JFrame()," Successfully added a user", "Congrates !",
-                        JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.INFORMATION_MESSAGE);
 
             /** reloadd the same page **/
             request.getRequestDispatcher("navbar.jsp").forward(request, response);;

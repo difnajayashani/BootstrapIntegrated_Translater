@@ -22,7 +22,7 @@ import java.sql.SQLException;
 /**
  * Created by hsenid on 5/2/16.
  */
-public class SearchUserServlet extends HttpServlet {
+public class PopulateUserServlet extends HttpServlet {
 
     /**create the logger object for logging */
     private static final Logger LOG = LogManager.getLogger(AddUserServlet.class);

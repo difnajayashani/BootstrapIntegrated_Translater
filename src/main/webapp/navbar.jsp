@@ -19,8 +19,8 @@
   <link rel="stylesheet" href="css/form-elements.css">
 
   <!-- Javascript -->
-  <script src="js/jquery-1.11.1.min.js"></script>
-  <script src="js/scripts.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+ <script src="js/scripts.js"></script>
   <script src="bootstrap/js/jquery.min.js"></script>
   <script src="bootstrap/js/bootstrap.min.js"></script>
 
@@ -28,7 +28,14 @@
 
 
 
+  <!--javascript to populate the bootstrap table -->
+  <script src="bootstrap_table.js"></script>
 
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.min.js"></script>
 
 
 
