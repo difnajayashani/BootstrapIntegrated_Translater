@@ -1,8 +1,10 @@
 $(document).ready(function () {
+
     $.ajax({
         type: "POST",
         url: "PopulateUserServlet",
         dataType: "json",
+
         success: function (result) {
 
             $('#table').bootstrapTable({
@@ -73,6 +75,53 @@ $(document).ready(function () {
 })
 
 
+$(document).ready(function () {
+
+    /*
+     * typeahead function
+     */
+    $("#user-search").keyup(function () {
+     var sname = $("#user-search").val();
+
+        $.ajax({
+            type: "POST",
+            url: "TypeAheadServlet",
+            dataType: "json",
+            data: {"sname": sname},
+            success: function (data) {
+                //alert("Usname value"+ data);
+               $('#user-search').typeahead({
+                    source: data
+
+                });
+            }
+        })
+    })
+
+})
+
+
+$(document).ready(function () {
+
+   // $("#searchbtn").click(function () {
+      $("#user-search").keyup(function () {
+        var snamef = $("#user-search").val();
+
+        $.ajax({
+            type: "POST",
+            url: "SearchUserServlet",
+            dataType: "json",
+            data: {"snamef": snamef},
+            success: function (data) {
+            //alert("output for searcj button"+ data);
+                $('#table').bootstrapTable('load', data);
+            }
+        })
+    })
+
+})
+
+
 
 
 function operateFormatter(value, row, index) {
@@ -130,6 +179,7 @@ $(document).ready(function(){
             type:"POST",
             url:"DeleteUserServlet",
             data:{"val":val},
+
             success:function(msg){
 
                 if(msg==1){
@@ -160,7 +210,7 @@ $(document).ready(function(){
         var uemail = $("#update-form-email").val();
         var umobile = $("#update-form-mobile").val();
         var upw = $("#update_password").val();
-       // alert("Working !" + udate)
+        alert("Working !" + udate)
 
       $.ajax({
 
@@ -184,5 +234,6 @@ $(document).ready(function(){
  ;
     });
 });
+
 
 
