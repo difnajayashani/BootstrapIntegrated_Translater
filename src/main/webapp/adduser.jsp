@@ -100,6 +100,32 @@
             });
         });
 
+
+        $(document).ready(function(){
+        $("#country").change(function () {
+
+                var country = $(this).val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "LoadCityServlet",
+                    dataType: "JSON",
+                    data: {"country": country},
+                    success: function (data) {
+
+                        var  formCity = $("#form-city"), option = "";
+                        formCity.empty();
+
+                        for (var C = 0; C < data.length; C++) {
+                            option = option + "<option value='" + data[C].cityName + "'>" + data[C].cityName + "</option>";
+                        }
+                        formCity.append(option);
+                    }
+                })
+            })
+
+              });
+
     </script>
     <!--------------------------------------------------------------------------------------------------------------------------------------->
 
@@ -179,7 +205,9 @@
                     <div class="form-group">
                         <label class="control-label col-sm-6">City*</label>
                         <div class="col-sm-6">
-                            <input type="text" name="form-city" placeholder="City..." class="form-city form-control" id="form-city"  required>
+                            <select id="form-city" name="form-city" class="form-city form-control" required>
+                                <option>--Select--</option>
+                            </select>
                         </div>
 
                     </div>
