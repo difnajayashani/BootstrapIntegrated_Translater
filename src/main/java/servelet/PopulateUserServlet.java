@@ -14,14 +14,9 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-
 import java.sql.SQLException;
 
-
-
-/**
- * Created by hsenid on 5/2/16.
- */
+/** This servlet is to initially populate the user set on the bootstrap table*/
 public class PopulateUserServlet extends HttpServlet {
 
     /**create the logger object for logging */
@@ -29,6 +24,13 @@ public class PopulateUserServlet extends HttpServlet {
 
     UserPopulate u1=new UserPopulate();
 
+
+    /**
+     * @param request servlet instance we create to transport data to the servlet
+     * @param response servlet instance we use to obtain data from the servlet
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -42,14 +44,16 @@ public class PopulateUserServlet extends HttpServlet {
         JSONArray allUsers=new JSONArray();
 
 
-        String userSearched = request.getParameter("user-search-name");
+        String userSearched = request.getParameter("sname");
+        LOG.trace("searched user name is set", userSearched);
+
 
         try {
 
             /** connect to the database pool**/
             DatabaseUtility dbPool = (DatabaseUtility) getServletContext().getAttribute("DBManager");
             connection = dbPool.getConnection();
-            LOG.info("Database connection obtained for user search");
+            LOG.info("Database connection obtained for user populate");
 
             LOG.trace("method to poplulate the user_list is called");
             allUsers= u1.populateUsers(userSearched,connection);
@@ -58,8 +62,6 @@ public class PopulateUserServlet extends HttpServlet {
             LOG.info("Set the obtained list of users as a JSON array");
             /** set the attribute values**/
             request.setAttribute("users_list",allUsers);
-
-
 
 
 

@@ -20,12 +20,13 @@ public class UserInteract {
     /**create the logger object for logging */
     private static final Logger LOG = LogManager.getLogger(UserInteract.class);
 
-    private static PreparedStatement stmt = null;
+    private static PreparedStatement stmt1 = null;
 
 
     /** The method will enter the user to the database table after validating **/
 
-    public static boolean insertUser(Connection connection,String a,String b,String c,String d,String f,String g,String h,String i,String j)throws Exception{
+    public static boolean insertUser(Connection connection,String a,String b,String c,String d,String f,String g,
+                                     String h,String i,String j)throws Exception{
 
         LOG.info("Inside the userInsert method");
         LOG.info("value of i1 : {}",i);
@@ -33,16 +34,30 @@ public class UserInteract {
 
         try {
 
-            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`,`country` ,`city_id` ,`e_mail`,`mobile`)" +" VALUES (\"" + a + "\",MD5(\"" + b + "\"), \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\",\"" +h + "\" ,\"" +i + "\",\""+ j+ "\")";
+            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`," +
+                    "`country` ,`city_id`,`e_mail` ,`mobile`)" +" VALUES (\"" + a + "\",MD5(\"" + b + "\")," +
+                    " \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\"," +
+                    "(SELECT city_id FROM city_table WHERE city_name= \"" +h + "\"),\"" +i +
+                    "\",\""+ j+ "\")";
+
 
             if(connection != null) {
                 LOG.debug("Connection not null");
 
 
                 /** create a statement*/
-                stmt = connection.prepareStatement(insertQuery);
+                stmt1 = connection.prepareStatement(insertQuery);
+
+                if(stmt1 != null){
+
+                    LOG.debug("statement 1 not null");
+                }
+
+
                 // insert the data
-                stmt.executeUpdate();
+                assert stmt1 != null;
+                stmt1.executeUpdate();
+                LOG.debug("inserted first data set successfully");
 
                 return true;
 
@@ -51,8 +66,8 @@ public class UserInteract {
 
 
         } finally {
-            if (stmt != null) {
-                stmt.close();
+            if (stmt1 != null) {
+                stmt1.close();
             }
             if (connection != null) {
                 connection.close();
@@ -81,10 +96,10 @@ public class UserInteract {
 
 
                 /** create a statement*/
-                stmt = connection.prepareStatement(insertQuery);
+                stmt1 = connection.prepareStatement(insertQuery);
                 LOG.debug("Statement created");
                 // insert the data
-                stmt.executeUpdate();
+                stmt1.executeUpdate();
                 LOG.debug("Queary executed");
 
                 return true;
@@ -94,8 +109,8 @@ public class UserInteract {
 
 
         } finally {
-            if (stmt != null) {
-                stmt.close();
+            if (stmt1 != null) {
+                stmt1.close();
             }
             if (connection != null) {
                 connection.close();
@@ -117,18 +132,18 @@ public class UserInteract {
         String deleteQuery ="DELETE FROM user_data WHERE user_name=\"" + userExist+ "\";";
 
         try {
-            stmt=con.prepareStatement(deleteQuery);
+            stmt1=con.prepareStatement(deleteQuery);
 
             //execute the statement
 
-            return stmt.executeUpdate();
+            return stmt1.executeUpdate();
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            if (stmt != null) {
-                stmt.close();
+            if (stmt1 != null) {
+                stmt1.close();
             }if(con!= null){
                 con.close();
 
@@ -141,7 +156,7 @@ public class UserInteract {
     }
 
 
-/* public static void main(String args[]) throws SQLException {
+ public static void main(String args[]) throws SQLException {
 
 
      DatabaseUtility dbPool = new DatabaseUtility();
@@ -153,8 +168,11 @@ public class UserInteract {
      }
      try {
 
-         int test=UserInteract.deletetUser(con,"nayana");
-         System.out.print(test);
+               /*int test=UserInteract.deletetUser(con,"nayana");
+         System.out.print(test);*/
+
+         boolean insert= UserInteract.insertUser(con,"testi","test1","Test1","Test12","01/07/2016","Sri Lanka","Colombo","test@gmail.com","+94567843670");
+         System.out.print(insert);
 
      } catch (SQLException e) {
          e.printStackTrace();
@@ -166,7 +184,7 @@ public class UserInteract {
      }
 
 
- }*/
+ }
 }
 
 

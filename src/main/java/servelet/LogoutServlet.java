@@ -10,6 +10,14 @@ import java.io.IOException;
 
 public class LogoutServlet extends HttpServlet {
 
+
+/**
+ * @param request servlet instance we create to transport data to the servlet
+ * @param response servlet instance we use to obtain data from the servlet
+ * @throws ServletException
+ * @throws IOException
+ */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {

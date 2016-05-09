@@ -1,6 +1,6 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
@@ -67,6 +67,27 @@
 
   </servlet>
 
+  <servlet>
+    <servlet-name>servlet9</servlet-name>
+    <servlet-class>servelet.SearchUserServlet</servlet-class>
+    <load-on-startup>9</load-on-startup>
+
+  </servlet>
+
+  <servlet>
+    <servlet-name>servlet10</servlet-name>
+    <servlet-class>servelet.TypeAheadServlet</servlet-class>
+    <load-on-startup>10</load-on-startup>
+
+  </servlet>
+
+  <servlet>
+    <servlet-name>servlet11</servlet-name>
+    <servlet-class>servelet.LoadCityServlet</servlet-class>
+    <load-on-startup>11</load-on-startup>
+
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>servlet1</servlet-name>
     <url-pattern>/MyServlet</url-pattern>
@@ -106,6 +127,22 @@
   <servlet-mapping>
     <servlet-name>servlet8</servlet-name>
     <url-pattern>/UpdateUserServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>servlet9</servlet-name>
+    <url-pattern>/SearchUserServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>servlet10</servlet-name>
+    <url-pattern>/TypeAheadServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>servlet11</servlet-name>
+    <url-pattern>/LoadCityServlet</url-pattern>
   </servlet-mapping>
 
 

@@ -1,21 +1,23 @@
 $(document).ready(function () {
+
     $.ajax({
         type: "POST",
         url: "PopulateUserServlet",
         dataType: "json",
+
         success: function (result) {
 
             $('#table').bootstrapTable({
                 pagination: true,
-                pageSize: 5,
-                pageList: [10, 25, 50, 100, 200],
+                pageSize: 10,
+               // pageList: [10, 25, 50, 100, 200],
                 //search: true,
                 showColumns: true,
                 showRefresh: true,
                 showToggle:true,
                 detailView:true,
                 //detailFormatter: detailFormatter,
-               clickToSelect: true,
+                clickToSelect: true,
 
                 singleSelect: true,
                 toolbar: '#toolbar',
@@ -73,6 +75,53 @@ $(document).ready(function () {
 })
 
 
+$(document).ready(function () {
+
+    /*
+     * typeahead function
+     */
+    $("#user-search").keyup(function () {
+        var sname = $("#user-search").val();
+
+        $.ajax({
+            type: "POST",
+            url: "TypeAheadServlet",
+            dataType: "json",
+            data: {"sname": sname},
+            success: function (data) {
+                //alert("Usname value"+ data);
+                $('#user-search').typeahead({
+                    source: data
+
+                });
+            }
+        })
+    })
+
+})
+
+
+$(document).ready(function () {
+
+    // $("#searchbtn").click(function () {
+    $("#user-search").keyup(function () {
+        var snamef = $("#user-search").val();
+
+        $.ajax({
+            type: "POST",
+            url: "SearchUserServlet",
+            dataType: "json",
+            data: {"snamef": snamef},
+            success: function (data) {
+                //alert("output for searcj button"+ data);
+                $('#table').bootstrapTable('load', data);
+            }
+        })
+    })
+
+})
+
+
 
 
 function operateFormatter(value, row, index) {
@@ -104,11 +153,11 @@ window.operateEvents = {
 
         $('#myModal2').modal('show');
 
- //alert('You click like action, row: ' + data1);
+        //alert('You click like action, row: ' + data1);
 
     },
 
- 'click .remove': function (e, value, row, index) {
+    'click .remove': function (e, value, row, index) {
         var data2 = JSON.stringify(row);
         var objc2 = JSON.parse(data2);
         $('#lblUname').text(objc2["user_name"]);
@@ -122,7 +171,7 @@ window.operateEvents = {
 $(document).ready(function(){
     $("#btnDelt").click(function(){
         var val=$("#lblUname").text();
-       // var val = 'difna';
+        // var val = 'difna';
 
 //        alert("Error in deleting !" +val);
         $.ajax({
@@ -130,6 +179,7 @@ $(document).ready(function(){
             type:"POST",
             url:"DeleteUserServlet",
             data:{"val":val},
+
             success:function(msg){
 
                 if(msg==1){
@@ -156,13 +206,14 @@ $(document).ready(function(){
         var ul_name = $("#update-last-name").val();
         var udate = $("#date2").val();
         var ucountry = $("#update-country").val();
-        var ucity = $("#update-form-city").val();
+        var ucity = $("#update-city").val();
         var uemail = $("#update-form-email").val();
         var umobile = $("#update-form-mobile").val();
         var upw = $("#update_password").val();
-       // alert("Working !" + udate)
 
-      $.ajax({
+       // alert("Updated User details of " + ucity);
+
+        $.ajax({
 
             type:"POST",
             url:"UpdateUserServlet",
@@ -171,18 +222,45 @@ $(document).ready(function(){
 
             success:function(msg){
 
-                 if(msg==1){
+                if(msg==1){
                     alert("Updated User details of " + user);
 
 
                 }else{
-                   alert("Error in updating!");
-                  $("#myModal1").modal('hide');
+                    alert("Error in updating!");
+                    $("#myModal1").modal('hide');
                 }
             }
         })
- ;
+        ;
     });
 });
 
+
+<!--javascript to load the cities pertaing to the country in update form -->
+
+$(document).ready(function(){
+    $("#update-country").change(function () {
+
+        var country = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            url: "LoadCityServlet",
+            dataType: "JSON",
+            data: {"country": country},
+            success: function (data) {
+
+                var  formCity = $("#update-city"), option = "";
+                formCity.empty();
+
+                for (var C = 0; C < data.length; C++) {
+                    option = option + "<option value='" + data[C].cityName + "'>" + data[C].cityName + "</option>";
+                }
+                formCity.append(option);
+            }
+        })
+    })
+
+});
 

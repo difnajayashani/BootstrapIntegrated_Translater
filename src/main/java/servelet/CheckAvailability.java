@@ -21,6 +21,14 @@ public class CheckAvailability extends HttpServlet {
     /**create the logger object for logging */
     private static final Logger LOG = LogManager.getLogger(AddUserServlet.class);
 
+
+    /**
+     * @param request servlet instance we create to transport data to the servlet
+     * @param response servlet instance we use to obtain data from the servlet
+     * @throws ServletException
+     * @throws IOException
+     */
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

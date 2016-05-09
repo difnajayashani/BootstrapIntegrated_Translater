@@ -1,28 +1,24 @@
 package usermanage;
 
-
-
 import c3p0.sample.DatabaseUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-
-import javax.json.JsonObject;
 import java.beans.PropertyVetoException;
 import java.sql.*;
-import java.util.ArrayList;
 
+
+
+/** This class populate the user records on the bootstrap table
+ *  Output is a json array
+ *  **/
 
 public class UserPopulate {
-
-
     /**
      * create the logger object for logging
      */
     private static final Logger LOG = LogManager.getLogger(UserInteract.class);
-
 
 
     public JSONArray populateUsers(String user, Connection con) throws SQLException, PropertyVetoException {
@@ -31,10 +27,9 @@ public class UserPopulate {
         JSONArray userList = new JSONArray();
 
 
-
-
         Statement st = null;
-        ResultSet rs = null;
+        ResultSet rs1 = null;
+        ResultSet rs2 = null;
 
         LOG.trace("Inside the populate users method");
 
@@ -42,15 +37,14 @@ public class UserPopulate {
 
 
             st = con.createStatement();
-           // rs = st.executeQuery("SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user_data WHERE f_name= \"" + user + "\"  ORDER BY ID ASC;");
 
-            rs = st.executeQuery("SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user_data  ORDER BY ID ASC;");
+            rs1 = st.executeQuery("SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user_data  ORDER BY ID ASC;");
             LOG.trace("Query to search user executed ");
 
 
             LOG.trace("Loop through the resultset ");
             int size = 1;
-            while (rs.next()) {
+            while (rs1.next()) {
 
                 /**create a JSON objecty */
                 JSONObject a1= new JSONObject();
@@ -59,16 +53,25 @@ public class UserPopulate {
 
                 LOG.info("Size of loop is:", size);
 
-                a1.append("id", rs.getString("ID"));
-                a1.append("user_name",rs.getString("user_name"));
-                a1.append("f_name",rs.getString("f_name"));
-                a1.append("l_name",rs.getString("l_name"));
-                a1.append("niceDate",rs.getString("niceDate"));
-                a1.append("country",rs.getString("country"));
-                a1.append("city_id",rs.getString("city_id"));
-                a1.append("e_mail",rs.getString("e_mail"));
-                a1.append("mobile",rs.getString("mobile"));
+                a1.append("id", rs1.getString("ID"));
+                a1.append("user_name",rs1.getString("user_name"));
+                a1.append("f_name",rs1.getString("f_name"));
+                a1.append("l_name",rs1.getString("l_name"));
+                a1.append("niceDate",rs1.getString("niceDate"));
+                a1.append("country",rs1.getString("country"));
+                a1.append("e_mail",rs1.getString("e_mail"));
+                a1.append("mobile",rs1.getString("mobile"));
 
+                String cityQuery="SELECT city_name FROM city_table" +
+                        " WHERE city_id= " +Integer.parseInt(rs1.getString("city_id")) +"; ";
+
+
+                st = con.createStatement();
+                rs2=st.executeQuery(cityQuery);
+
+                while(rs2.next()){
+                    a1.append("city_id",rs2.getString("city_name"));
+                }
 
                 size++;
                 System.out.println("al :: " + a1);
@@ -81,8 +84,8 @@ public class UserPopulate {
 
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
+                if (rs1 != null) {
+                    rs1.close();
                 }
                 if (st != null) {
                     st.close();
@@ -99,6 +102,7 @@ public class UserPopulate {
     }
 
 
+    /** main function is for testing purpose of the above methods in the class**/
     public static void main(String args[]) throws SQLException {
 
         JSONArray ex1;

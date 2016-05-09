@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-
+/** This servlet is for user addition**/
 public class AddUserServlet  extends HttpServlet {
 
 
@@ -78,8 +78,11 @@ public class AddUserServlet  extends HttpServlet {
                 if (success) {
                     LOG.info("The user is inserted successfully");
 
-                    RequestDispatcher rd = request.getRequestDispatcher("adduser.jsp");
-                    rd.forward(request, response);
+                   /* RequestDispatcher rd = request.getRequestDispatcher("adduser.jsp");
+                    rd.forward(request, response);*/
+
+                    /** reloadd the same page **/
+                    request.getRequestDispatcher("adduser.jsp").forward(request, response);;
                 }
                 else{
                     LOG.error("Error in inserting the user to database successfully");
@@ -88,15 +91,11 @@ public class AddUserServlet  extends HttpServlet {
 
 
 
-       /*     else{
-                LOG.warn("User is not valid");
-                // error pop up message for invalid user credentials
-*/
+
                 JOptionPane.showMessageDialog(new JFrame()," Successfully added a user", "Congrates !",
                         JOptionPane.INFORMATION_MESSAGE);
 
-            /** reloadd the same page **/
-            request.getRequestDispatcher("navbar.jsp").forward(request, response);;
+
 
         } catch (Exception e) {
             LOG.error("Got an exception! : {}", e.getMessage());

@@ -61,7 +61,10 @@ public class UpdateUserServlet extends HttpServlet {
 
 
         try {
-            String insertQuery = "UPDATE user_data SET  password = \"" + upw + "\",f_name =\"" + uf_name + "\" ,l_name =\"" + ul_name + "\",birth_date =STR_TO_DATE(\"" + udate + "\",'%m/%d/%Y'),country = \"" + ucountry + "\" ,city_id = \"" + ucity + "\" ,e_mail= \"" + uemail + "\",mobile = \"" + umobile + "\" WHERE user_name= \"" + uu_name + "\"";
+            String insertQuery = "UPDATE user_data SET  password = \"" + upw + "\",f_name =\"" + uf_name + "\" ," +
+                    "l_name =\"" + ul_name + "\",birth_date =STR_TO_DATE(\"" + udate + "\",'%m/%d/%Y')," +
+                    "country = \"" + ucountry + "\" ,city_id =(SELECT city_id FROM city_table WHERE city_name= \""
+                    +ucity+ "\"),e_mail= \"" + uemail + "\"," + "mobile = \"" + umobile + "\" WHERE user_name= \"" + uu_name + "\"";
 
             connection = dbPool.getConnection();
             if (connection != null) {
@@ -70,10 +73,10 @@ public class UpdateUserServlet extends HttpServlet {
 
                 /** create a statement*/
                 stmt = connection.prepareStatement(insertQuery);
-                LOG.trace("Statement created");
+                LOG.trace(" update Statement created");
 
                 // insert the data
-                LOG.trace("Queary executed 1");
+                LOG.trace("Update Queary executed 1");
                 int updateSuccess= stmt.executeUpdate();
                 LOG.trace("Queary executed 2");
 
@@ -83,13 +86,9 @@ public class UpdateUserServlet extends HttpServlet {
                 }
                 else
                     out.println(0);
-
-
-
-
+                LOG.info("Updating not success ");
 
             }
-
 
         } catch (SQLException e) {
             LOG.error("exception in user update");

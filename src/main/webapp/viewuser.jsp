@@ -20,7 +20,7 @@
 
 <%--<div class="container">--%>
 
-    <div class="row">
+<%--    <div class="row">--%>
         <div class="col-sm-10 col-sm-offset-1 ">
             <div class="panel panel-default panel-table">
 
@@ -28,13 +28,6 @@
 
             <div class="panel-heading">
 
-                <div id="updateUsr" class="row">
-
-                  <%--  <jsp:include page="searchuser.jsp">
-                        <jsp:param name="title" value="User Search"/>
-                    </jsp:include>--%>
-
-                </div>
 
                 <div class="row">
                     <div class="col col-xs-8">
@@ -148,6 +141,7 @@
                                          <label for="update-country" class="col-sm-4 control-label" >Country *</label>
                                          <div class="col-sm-8">
                                              <select class="form-control" name="update-country" id="update-country" required>
+                                                 <option>--Select--</option>
                                                  <option value="Sri Lanka">Sri Lanka</option>
                                                  <option value="India">India</option>
                                                  <option value="Japan">Japan</option>
@@ -159,10 +153,11 @@
 
 
                                      <div class="form-group">
-                                         <label class="col-sm-4 control-label">City*</label>
+                                         <label for="update-city" class="col-sm-4 control-label">City*</label>
                                          <div class="col-sm-8">
-                                             <input type="text" name="update-form-city"  class="form-city form-control"
-                                                    id="update-form-city"  required>
+                                             <select class="form-control" id="update-city" name="update-city" required>
+                                                 <option>--Select--</option>
+                                             </select>
                                          </div>
 
                                      </div>
@@ -241,17 +236,15 @@
                  </div>
 
 
-
         <%--panel body to insert the table --%>
         <div class="panel-body" id="table">
-
 
         </div>
 
 
     </div>
    </div>
- </div>
+ <%--</div>--%>
 <%--</div>--%>
 
 
