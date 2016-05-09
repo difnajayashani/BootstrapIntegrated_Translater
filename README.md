@@ -2,6 +2,10 @@
 hare the webapp is integrated with bootstrap and also Testng
 
 > two basic functionalities occurring in this web app is validating the user entered credentials and translating the entered text in a selected language to the selected language.
+> few more functionalities were added
+>> A logged in user can add a new user to the system supplying the user details. Accordingly the database gets updated
+>> A logged in user can view all the users enrollrd in the database
+>> A logged in user can update user details and also delete a user 
 
 
 #### Prerequisities
