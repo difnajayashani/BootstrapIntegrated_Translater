@@ -62,3 +62,10 @@ hare the webapp is integrated with bootstrap and also Testng
 #### Considerations
 - package structure of `main/java` should be identical to that of `test/java`.
 - Give a valid name for the test class so as to relate to the particular class it is testing 
+
+#### Integrated features
+- Bootstrap table
+- Bootstrap modals
+- user Authentication with the MD5 hashed password
+- User Add, User Delete, User Update funtionalities
+- Seperate User Search function
