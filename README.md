@@ -2,6 +2,10 @@
 hare the webapp is integrated with bootstrap and also Testng
 
 > two basic functionalities occurring in this web app is validating the user entered credentials and translating the entered text in a selected language to the selected language.
+> few more functionalities were added
+>> A logged in user can add a new user to the system supplying the user details. Accordingly the database gets updated
+>> A logged in user can view all the users enrollrd in the database
+>> A logged in user can update user details and also delete a user 
 
 
 #### Prerequisities
@@ -58,3 +62,10 @@ hare the webapp is integrated with bootstrap and also Testng
 #### Considerations
 - package structure of `main/java` should be identical to that of `test/java`.
 - Give a valid name for the test class so as to relate to the particular class it is testing 
+
+#### Integrated features
+- Bootstrap table
+- Bootstrap modals
+- user Authentication with the MD5 hashed password
+- User Add, User Delete, User Update funtionalities
+- Seperate User Search function
