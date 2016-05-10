@@ -46,7 +46,7 @@ public class LoadCityServlet extends HttpServlet {
 
         String countryId = request.getParameter("country");
 
-        String sql = "select city_name from city_table where country_name=\'" + countryId + "\';";
+        String sql = "select city_name from City where country_name=\'" + countryId + "\';";
 
 
         LOG.info("JSON array initialized");

@@ -38,7 +38,7 @@ public class UserPopulate {
 
             st = con.createStatement();
 
-            rs1 = st.executeQuery("SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user_data  ORDER BY ID ASC;");
+            rs1 = st.executeQuery("SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM User  ORDER BY UID ASC;");
             LOG.trace("Query to search user executed ");
 
 
@@ -53,7 +53,7 @@ public class UserPopulate {
 
                 LOG.info("Size of loop is:", size);
 
-                a1.append("id", rs1.getString("ID"));
+                a1.append("id", rs1.getString("UID"));
                 a1.append("user_name",rs1.getString("user_name"));
                 a1.append("f_name",rs1.getString("f_name"));
                 a1.append("l_name",rs1.getString("l_name"));
@@ -62,8 +62,8 @@ public class UserPopulate {
                 a1.append("e_mail",rs1.getString("e_mail"));
                 a1.append("mobile",rs1.getString("mobile"));
 
-                String cityQuery="SELECT city_name FROM city_table" +
-                        " WHERE city_id= " +Integer.parseInt(rs1.getString("city_id")) +"; ";
+                String cityQuery="SELECT city_name FROM City" +
+                        " WHERE Cityid= " +Integer.parseInt(rs1.getString("city_id")) +"; ";
 
 
                 st = con.createStatement();

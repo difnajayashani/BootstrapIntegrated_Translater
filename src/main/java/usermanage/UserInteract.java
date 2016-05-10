@@ -34,10 +34,10 @@ public class UserInteract {
 
         try {
 
-            String insertQuery ="INSERT INTO user_data (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`," +
+            String insertQuery ="INSERT INTO User (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`," +
                     "`country` ,`city_id`,`e_mail` ,`mobile`)" +" VALUES (\"" + a + "\",MD5(\"" + b + "\")," +
                     " \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\"," +
-                    "(SELECT city_id FROM city_table WHERE city_name= \"" +h + "\"),\"" +i +
+                    "(SELECT CityID FROM City WHERE city_name= \"" +h + "\"),\"" +i +
                     "\",\""+ j+ "\")";
 
 
@@ -82,7 +82,8 @@ public class UserInteract {
      *  The method will update the user from the database table*
      *  */
 
-    public static boolean updateUser(Connection connection,String a,String b,String c,String d,String f,String g,String h,String i,String j)throws Exception{
+    public static boolean updateUser(Connection connection,String a,String b,String c,String d,String f,String g,
+                                     String h,String i,String j)throws Exception{
 
         LOG.info("Inside the userUpdate method");
         LOG.info("value of i1 : {}",i);
@@ -90,7 +91,9 @@ public class UserInteract {
 
         try {
 
-            String insertQuery ="UPDATE user_data SET  password = \"" +b + "\",f_name =\"" +c + "\" ,l_name =\"" + d + "\",birth_date =STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),country = \"" + g+ "\" ,city_id = \"" +h+ "\" ,e_mail= \"" +i+ "\",mobile = \"" +j+ "\" WHERE user_name= \"" +a+ "\"";
+            String insertQuery ="UPDATE User SET  password = \"" +b + "\",f_name =\"" +c + "\" ,l_name =\"" + d + "\"," +
+                    "birth_date =STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),country = \"" + g+ "\" ,city_id = \"" +h+ "\" ," +
+                    "e_mail= \"" +i+ "\",mobile = \"" +j+ "\" WHERE user_name= \"" +a+ "\"";
             if(connection != null) {
                 LOG.debug("Connection not null");
 
@@ -129,7 +132,7 @@ public class UserInteract {
 
         //search in database if the user exists
 
-        String deleteQuery ="DELETE FROM user_data WHERE user_name=\"" + userExist+ "\";";
+        String deleteQuery ="DELETE FROM User WHERE user_name=\"" + userExist+ "\";";
 
         try {
             stmt1=con.prepareStatement(deleteQuery);

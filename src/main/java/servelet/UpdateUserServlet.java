@@ -61,9 +61,9 @@ public class UpdateUserServlet extends HttpServlet {
 
 
         try {
-            String insertQuery = "UPDATE user_data SET  password = \"" + upw + "\",f_name =\"" + uf_name + "\" ," +
+            String insertQuery = "UPDATE User SET  password = \"" + upw + "\",f_name =\"" + uf_name + "\" ," +
                     "l_name =\"" + ul_name + "\",birth_date =STR_TO_DATE(\"" + udate + "\",'%m/%d/%Y')," +
-                    "country = \"" + ucountry + "\" ,city_id =(SELECT city_id FROM city_table WHERE city_name= \""
+                    "country = \"" + ucountry + "\" ,city_id =(SELECT CityID FROM City WHERE city_name= \""
                     +ucity+ "\"),e_mail= \"" + uemail + "\"," + "mobile = \"" + umobile + "\" WHERE user_name= \"" + uu_name + "\"";
 
             connection = dbPool.getConnection();

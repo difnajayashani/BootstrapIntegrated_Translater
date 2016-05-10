@@ -88,7 +88,8 @@ $(document).ready(function(){
             dataType: "JSON",
             data: {"country": country},
             success: function (data) {
-
+               /* var data1 = JSON.stringify(data);
+                alert("the cities" +data1);*/
                 var  formCity = $("#form-city"), option = "";
                 formCity.empty();
 

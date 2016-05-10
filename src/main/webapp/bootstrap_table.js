@@ -23,11 +23,11 @@ $(document).ready(function () {
                 toolbar: '#toolbar',
 
                 minimumCountColumns: 3,
-                columns: [{
+                columns: [/*{
                     field: 'state',
                     checkbox: true
 
-                },{
+                },*/{
                     field: 'id',
                     title: 'ID :',
                     sortable: true
