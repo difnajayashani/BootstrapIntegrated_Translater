@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /** This servlet is for user addition**/
@@ -49,6 +50,10 @@ public class AddUserServlet  extends HttpServlet {
         String u_name = request.getParameter("username");
         String pw = request.getParameter("password");
 
+        String group= request.getParameter("group");
+
+        LOG.info("value of group selected is :{}", group);
+
 
 
         /**set the logged in user's name */
@@ -62,6 +67,8 @@ public class AddUserServlet  extends HttpServlet {
         request.setAttribute("u_name",u_name);
         request.setAttribute("pw", pw);
         LOG.info("Date read from form! : {}", date);
+
+        PreparedStatement stmt = null;
 
         /** connect to the database pool**/
         DatabaseUtility dbPool=(DatabaseUtility)getServletContext().getAttribute("DBManager");
@@ -77,6 +84,16 @@ public class AddUserServlet  extends HttpServlet {
 
                 if (success) {
                     LOG.info("The user is inserted successfully");
+
+                    LOG.info("query to update the User_Group table");
+                    String extraQuery="INSERT INTO user_group ( `user_id` ,`group_id`)" + "VALUES ((SELECT id FROM user WHERE username= \"" + u_name + "\"),(SELECT id FROM functional_group WHERE name=\"" +group+ "\"))";
+
+
+                    /** create a statement for User_Group database table update*/
+                    stmt = dbPool.getConnection().prepareStatement(extraQuery);
+
+                    stmt.executeUpdate();
+                    LOG.info("The update is executed");
 
                    /* RequestDispatcher rd = request.getRequestDispatcher("adduser.jsp");
                     rd.forward(request, response);*/
@@ -99,6 +116,13 @@ public class AddUserServlet  extends HttpServlet {
 
         } catch (Exception e) {
             LOG.error("Got an exception! : {}", e.getMessage());
+        }finally{
+
+            try {
+                dbPool.getConnection().close();
+            } catch (SQLException e) {
+                LOG.error("Error in closing the connection for userGroup table update");
+            }
         }
 
 

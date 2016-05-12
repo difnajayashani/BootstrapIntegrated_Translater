@@ -51,7 +51,7 @@ public class CheckAvailability extends HttpServlet {
 
             Statement stmt = connection.createStatement();
 
-            String query = "SELECT user_name FROM User where user_name =\"" + uname + "\" ; ";
+            String query = "SELECT username FROM user where username =\"" + uname + "\" ; ";
             rs = stmt.executeQuery(query);
             LOG.trace("Query executed");
 

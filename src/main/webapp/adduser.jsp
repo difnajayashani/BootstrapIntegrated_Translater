@@ -25,6 +25,14 @@
     <!--javascript for user validation and city load-->
     <script src="js/adduser.js"></script>
 
+    <!-- Javascript for the date picker -->
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="datepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css"/>
+    <script type="text/javascript" src="datepicker/moment.js"></script>
+    <script type="text/javascript" src="datepicker/daterangepicker.js"></script>
+
 
 </head>
 
@@ -33,8 +41,6 @@
 
 <!-- Top content -->
 
-
-<div class="row">
     <center>
 
         <div class="form-box">
@@ -55,42 +61,41 @@
 
             <div class="form-bottom">
 
-                <form role="form" id="adduser_form" action="AddUserServlet" method="post" class="registration-form" >
+                <form role="form" id="adduser_form" action="AddUserServlet" method="post" class="form-horizontal" >
 
 
                     <div class="form-group">
-                        <label class="control-label col-md-6">First name *</label>
-                        <div class="col-md-6">
+                        <label class="col-sm-4">First name *</label>
+                        <div class="col-sm-8">
                             <input type="text" name="form-first-name" placeholder="First name..."
-                                   class="form-first-name form-control" id="form-first-name" required>
+                                   class="form-control" id="form-first-name" required>
 
 
                         </div>
                     </div>
 
-                    <div class="form-group"></div>
 
                     <div class="form-group">
-                        <label class="control-label col-sm-6" >Last name</label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-4 " >Last name</label>
+                        <div class="col-sm-8">
                             <input type="text" name="form-last-name" placeholder="Last name..."
-                                   class="form-last-name form-control" id="form-last-name">
+                                   class="form-control" id="form-last-name">
                         </div>
                     </div>
 
-                    <div class="form-group"></div>
 
                     <div class="form-group">
-
-                        <%@include file="datepicker.jsp" %>
-
+                        <label for="date" class="col-sm-4 " >  Date of Birth *:</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="date" class="form-control" id="date" required="">
+                        </div>
                     </div>
 
-                    <div class="form-group"></div>
+
 
                     <div class="form-group">
-                        <label for="country" class="control-label col-sm-6" >Country *</label>
-                        <div class="col-sm-6">
+                        <label for="country" class="col-sm-4 " >Country *</label>
+                        <div class="col-sm-8">
                             <select class="form-control" name="country" id="country" required>
                                 <option>--Select--</option>
                                 <option value="Sri Lanka">Sri Lanka</option>
@@ -103,11 +108,11 @@
                     </div>
 
 
-                    <div class="form-group"></div>
+
 
                     <div class="form-group">
-                        <label for="form-city" class="control-label col-sm-6">City*</label>
-                        <div class="col-sm-6">
+                        <label for="form-city" class="col-sm-4 ">City*</label>
+                        <div class="col-sm-8">
                             <select class="form-control" id="form-city" name="form-city" required>
                                 <option>--Select--</option>
                             </select>
@@ -116,11 +121,11 @@
                     </div>
 
 
-                    <div class="form-group"></div>
+
 
                     <div class="form-group">
-                        <label class="control-label col-sm-6">Email(eg:xxx@gmail.com)*</label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-4 ">Email* (eg:xxx@gmail.com)</label>
+                        <div class="col-sm-8">
                             <input type="text" name="form-email" placeholder="Email..." class="form-email form-control"
                                    id="form-email" pattern="^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.
                                    [a-zA-Z0-9-]+)*\.(([0-9]{1,3})|([a-zA-Z]{2,3}))$" required>
@@ -130,22 +135,21 @@
 
 
                     <div class="form-group">
-                        <label class="control-label col-sm-6">Mobile (94xxxxxxxxx)*</label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-4">Mobile* (+94xxxxxxxxx)</label>
+                        <div class="col-sm-8">
                             <input type="text" name="form-mobile" placeholder="94xxxxxxxxx"
                                    class="form-mobile form-control" id="form-mobile" pattern="^\(?(\+94)\)?([0-9]{9})$"
                                    required>
                         </div>
                     </div>
 
-                    <div class="form-group"></div>
+
 
                     <div class="form-group ">
-                        <label class="control-label col-sm-6" >Username *</label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-4 " >Username *</label>
+                        <div class="col-sm-8">
                             <input type="text" name="username" placeholder="Username..." class="user_name form-control"
                                    id="form-username" required/>
-
 
                         </div>
 
@@ -153,14 +157,8 @@
 
 
                     <div class="form-group">
-                        <center>
-                            <span class="status"></span>
-                        </center>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-6" >Password *</label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-4 " >Password *</label>
+                        <div class="col-sm-8">
                             <input type="password" name="password" placeholder="Password..."
                                    class="form-password form-control"  id="form-password"
                                    onchange=" validatePassword(password)" required></span>
@@ -168,20 +166,32 @@
 
                     </div>
 
-                    <div class="form-group"></div>
+
 
                     <div class="form-group">
-                        <label  class="control-label col-sm-6" >Confirm pw *</label>
-                        <div class="col-sm-6">
+                        <label  class="col-sm-4 " >Confirm pw *</label>
+                        <div class="col-sm-8">
                             <input type="password" name="cnpassword" placeholder="Confirm Password..."
                                    class="form-password form-control" id="form-password-confirm"
                                    onchange=" passwordsEqual(cnpassword,password)" required>
                         </div>
 
                     </div>
-                    <div class="form-group"></div>
-                    <div class="form-group"></div>
-                    <div class="form-group"></div>
+
+                    <div class="form-group">
+                        <label for="group" class="col-sm-4" >Country *</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="group" id="group" required>
+                                <option>--Select--</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Customer Care">Customer Care</option>
+                                <option value="Translater">Translater</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+
 
                     <div class="form-group">
 
@@ -196,7 +206,7 @@
             </div>
         </div>
     </center>
-</div>
+
 
 </body>
 </html>

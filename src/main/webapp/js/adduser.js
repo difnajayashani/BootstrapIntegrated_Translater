@@ -103,3 +103,15 @@ $(document).ready(function(){
 
 });
 
+
+
+$(document).ready(function(){
+    $('#date').daterangepicker({
+
+
+         "singleDatePicker": true,
+        "showDropdowns": true,
+        "startDate": "04/22/2016"
+
+    });
+});

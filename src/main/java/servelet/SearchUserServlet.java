@@ -58,7 +58,7 @@ public class SearchUserServlet extends HttpServlet {
             LOG.info("Database connection obtained for user Search");
 
             st = connection.createStatement();
-            String sql ="SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user_data WHERE user_name" +
+            String sql ="SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user WHERE username" +
                     " LIKE \"" +userSearched + "%\" ;";
 
             // String sql ="SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user_data WHERE user_name REGEXP '^[\"" +userSearched + "\"].*$' ;";
@@ -75,24 +75,24 @@ public class SearchUserServlet extends HttpServlet {
 
                 LOG.info("append the each database read objects to a json object ");
 
-                a1.append("id", rs1.getString("ID"));
-                a1.append("user_name", rs1.getString("user_name"));
+                a1.append("id", rs1.getString("id"));
+                a1.append("user_name", rs1.getString("username"));
                 a1.append("f_name", rs1.getString("f_name"));
                 a1.append("l_name", rs1.getString("l_name"));
                 a1.append("niceDate", rs1.getString("niceDate"));
                 a1.append("country", rs1.getString("country"));
-                a1.append("e_mail", rs1.getString("e_mail"));
+                a1.append("e_mail", rs1.getString("email"));
                 a1.append("mobile", rs1.getString("mobile"));
 
-                String cityQuery="SELECT city_name FROM city_table" +
-                        " WHERE city_id= " +Integer.parseInt(rs1.getString("city_id")) +"; ";
+                String cityQuery="SELECT name FROM city" +
+                        " WHERE id= " +Integer.parseInt(rs1.getString("city_id")) +"; ";
 
 
                 st = connection.createStatement();
                 rs2=st.executeQuery(cityQuery);
 
                 while(rs2.next()){
-                    a1.append("city_id",rs2.getString("city_name"));
+                    a1.append("city_id",rs2.getString("name"));
                 }
 
                 LOG.info("Size of loop is:", size);

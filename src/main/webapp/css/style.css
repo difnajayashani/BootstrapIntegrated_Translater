@@ -89,7 +89,6 @@ h3 {
     line-height: 100px;
     text-align: right;
 }
-
 .form-bottom {
     padding: 25px 25px 30px 25px;
     background: #eee;
@@ -97,9 +96,9 @@ h3 {
     text-align: left;
 }
 
-.form-bottom form textarea {
+/*.form-bottom form textarea {
     height: 100px;
-}
+}*/
 
 .form-bottom form button.btn {
     width: 150px;

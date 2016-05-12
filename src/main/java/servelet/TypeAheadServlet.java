@@ -40,8 +40,9 @@ public class TypeAheadServlet extends HttpServlet {
         String sname = request.getParameter("sname");
 
         //String sql = "select * from user_data where user_name LIKE \'%" + sname + "%\';";
-       String sql ="SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user_data WHERE user_name REGEXP '^[\"" + sname + "\"].*$' ;";
-
+       //String sql ="SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM User WHERE user_name REGEXP '^[\"" + sname + "\"].*$' ;";
+        String sql ="SELECT * , DATE_FORMAT(birth_date,'%m/%d/%Y') AS niceDate FROM user WHERE username" +
+                " LIKE \"" +sname + "%\" ;";
 
         JSONArray jsonArray = new  JSONArray();
         Connection con = null;
@@ -70,6 +71,7 @@ public class TypeAheadServlet extends HttpServlet {
         } finally {
             try {
                 LOGGER.trace("Closing typeaheadUsrname connection..");
+                assert con != null;
                 con.close();
             } catch (SQLException e) {
                 LOGGER.fatal("Error while closing typeaheadUsrname connection..");

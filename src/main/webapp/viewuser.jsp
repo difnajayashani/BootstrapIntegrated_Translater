@@ -30,8 +30,9 @@
 
 
                 <div class="row">
-                    <div class="col col-xs-8">
-                        <%--<h2 class="panel-title"><center><strong>Registered Users</strong></center></h2>--%>
+                    <div class="col col-xs-3"></div>
+                    <div class="col col-xs-6">
+                        <h2 class="panel-title"><center><strong>Registered Users</strong></center></h2>
                     </div>
                     <div class="col col-xs-3">
                         <input type="text" id="user-search" name="user-search" placeholder="Search User..."
@@ -214,6 +215,20 @@
                                                     onchange=" passwordsEqual(update_cnpassword,update-password)" required>
                                          </div>
 
+                                     </div>
+
+                                     <div class="form-group">
+                                         <label for="ugroup" class="col-sm-4 control-label"  >Role *</label>
+                                         <div class="col-sm-8">
+                                             <select class="form-control" name="ugroup" id="ugroup" required>
+                                                 <option>--Select--</option>
+                                                 <option value="Administrator">Administrator</option>
+                                                 <option value="Customer Care">Customer Care</option>
+                                                 <option value="Translater">Translater</option>
+
+                                             </select>
+
+                                         </div>
                                      </div>
 
 

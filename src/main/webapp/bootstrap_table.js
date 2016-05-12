@@ -15,7 +15,7 @@ $(document).ready(function () {
                 showColumns: true,
                 showRefresh: true,
                 showToggle:true,
-                detailView:true,
+                //detailView:true,
                 //detailFormatter: detailFormatter,
                 clickToSelect: true,
 
@@ -30,37 +30,50 @@ $(document).ready(function () {
                 },*/{
                     field: 'id',
                     title: 'ID :',
-                    sortable: true
+                    sortable: true,
+                    align:'left'
                 },{
                     field: 'user_name',
-                    title: 'User Name :',
+                    title: 'Username :',
                     sortable: true,
+                    align:'left',
                     searchable:true
                 }, {
                     field: 'f_name',
                     title: 'First Name :',
+                    align:'left',
                     sortable: true
                 }, {
                     field: 'l_name',
                     title: 'Last Name :',
+                    align:'left',
                     sortable: true
                 }, {
                     field: 'niceDate',
                     title: 'DOB :',
+                    align:'left',
                     sortable: true
                 }, {
                     field: 'mobile',
-                    title: 'Phone No :'
+                    title: 'Phone No :',
+                    align:'left'
                 }, {
                     field: 'e_mail',
-                    title: 'Email :'
+                    title: 'Email :',
+                    align:'left'
                 }, {
                     field: 'country',
-                    title: 'Country :'
+                    title: 'Country :',
+                    align:'left'
                 }, {
                     field: 'city_id',
-                    title: 'City :'
-                }, {
+                    title: 'City :',
+                    align:'left'
+                },/*{
+                    field: 'group',
+                    title: 'Role :',
+                    align:'left'
+                },*/ {
                     field: 'Options',
                     title: 'Options :',
                     align: 'center',
@@ -210,6 +223,7 @@ $(document).ready(function(){
         var uemail = $("#update-form-email").val();
         var umobile = $("#update-form-mobile").val();
         var upw = $("#update_password").val();
+        var ugroup = $("#ugroup").val();
 
        // alert("Updated User details of " + ucity);
 
@@ -218,7 +232,7 @@ $(document).ready(function(){
             type:"POST",
             url:"UpdateUserServlet",
             data:{"uu_name":user,"uf_name":uf_name,"ul_name":ul_name,"udate":udate ,"ucountry":ucountry,"ucity":ucity,
-                "uemail":uemail,"umobile":umobile,"upw":upw},
+                "uemail":uemail,"umobile":umobile,"upw":upw, "ugroup":ugroup},
 
             success:function(msg){
 

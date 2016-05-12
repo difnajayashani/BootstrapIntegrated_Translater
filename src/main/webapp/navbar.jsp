@@ -25,6 +25,7 @@
 
 
 
+
   <!--javascript to populate the bootstrap table -->
   <script src="bootstrap_table.js"></script>
 
@@ -75,9 +76,9 @@
 
         <div class="row">
           <h1><strong> Online Translater </strong> User Page</h1>
-          <jsp:include page="header.jsp">
+         <%-- <jsp:include page="header.jsp">
             <jsp:param name="title" value="My website"/>
-          </jsp:include>
+          </jsp:include>--%>
 
         </div>
 
@@ -95,7 +96,7 @@
           </div>
 
           <div id="dropdown1" class="tab-pane fade">
-            <h3><strong>Add a New User</strong></h3>
+            <%--<h3><strong>Add a New User</strong></h3>--%>
 
 
               <jsp:include page="adduser.jsp">
@@ -105,7 +106,7 @@
           </div>
 
           <div id="dropdown2" class="tab-pane fade">
-            <h3><strong>View Users</strong></h3>
+            <%--<h3><strong>View Users</strong></h3>--%>
 
 
               <jsp:include page="viewuser.jsp">

@@ -34,11 +34,13 @@ public class UserInteract {
 
         try {
 
-            String insertQuery ="INSERT INTO User (`user_name`,`password`,`f_name` ,`l_name`,`birth_date`," +
-                    "`country` ,`city_id`,`e_mail` ,`mobile`)" +" VALUES (\"" + a + "\",MD5(\"" + b + "\")," +
+            String insertQuery ="INSERT INTO user (`username`,`password`,`f_name` ,`l_name`,`birth_date`," +
+                    "`country` ,`city_id`,`email` ,`mobile`)" +" VALUES (\"" + a + "\",MD5(\"" + b + "\")," +
                     " \"" +c + "\",\"" + d + "\", STR_TO_DATE(\"" + f + "\",'%m/%d/%Y'),\"" + g  + "\"," +
-                    "(SELECT CityID FROM City WHERE city_name= \"" +h + "\"),\"" +i +
+                    "(SELECT id FROM city WHERE name= \"" +h + "\"),\"" +i +
                     "\",\""+ j+ "\")";
+
+
 
 
             if(connection != null) {
@@ -132,7 +134,7 @@ public class UserInteract {
 
         //search in database if the user exists
 
-        String deleteQuery ="DELETE FROM User WHERE user_name=\"" + userExist+ "\";";
+        String deleteQuery ="DELETE FROM user WHERE username=\"" + userExist+ "\";";
 
         try {
             stmt1=con.prepareStatement(deleteQuery);
